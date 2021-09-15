@@ -85,7 +85,7 @@ metaDataFormat= "yaml"
   [[menu.main]]
     identifier = "Resume"
     name       = "Resume"
-    url        = "none"
+    url        = "resume/CV_XuejingHuang_LBS_202109.pdf/"
 
 
 [markup]
