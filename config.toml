@@ -39,6 +39,12 @@ metaDataFormat= "yaml"
   description= "I use this website to post some of my data analysis projects, the majority using R markdown, as well as my blogs about the things I like (musicals, photography, etc.) You can also know more about me by downloading my resume."
   licenseUrl = ""
 
+  [params.reward]                                         # 文章打赏
+    enable = false
+    wechat = "/path/to/your/wechat-qr-code.png"           # 微信二维码
+    alipay = "/path/to/your/alipay-qr-code.png"           # 支付宝二维码
+
+
  # Social icons
 #  [[params.social]]
 #    name = "gitlab"
@@ -77,11 +83,6 @@ metaDataFormat= "yaml"
     url        = "about"
 
   [[menu.main]]
-    identifier = "homepage"
-    name       = "Homepage"
-    url        = "homepage"
-
-  [[menu.main]]
     identifier = "posts"
     name       = "Posts"
     url        = "post/"
@@ -90,7 +91,7 @@ metaDataFormat= "yaml"
   [[menu.main]]
     identifier = "projects"
     name       = "Projects"
-    url        = "projects/"
+    url        = "project/"
 
 
   [[menu.main]]
@@ -98,6 +99,34 @@ metaDataFormat= "yaml"
     name       = "Resume"
     url        = "resume/CV_XuejingHuang_LBS_202109.pdf/"
 
+
+[params]
+
+  version = "4.x"           # Used to give a friendly message when you have an incompatible update
+  debug = false             # If true, load `eruda.min.js`. See https://github.com/liriliri/eruda
+
+  since = "2021"            # Site creation time          # 站点建立时间
+  # use public git repo url to link lastmod git commit, enableGitInfo should be true.
+  # 指定 git 仓库地址，可以生成指向最近更新的 git commit 的链接，需要将 enableGitInfo 设置成 true.
+  gitRepo = ""
+
+  # site info (optional)                                  # 站点信息（可选，不需要的可以直接注释掉）
+  logoTitle = "Jean's website"        # default: the title value    # 默认值: 上面设置的title值
+  keywords = ["Hugo", "theme","even"]
+  description = "Hugo theme even example site."
+
+  # paginate of archives, tags and categories             # 归档、标签、分类每页显示的文章数目，建议修改为一个较大的值
+  archivePaginate = 500
+
+  # show 'xx Posts In Total' in archive page ?            # 是否在归档页显示文章的总数
+  showArchiveCount = false
+
+  # The date format to use; for a list of valid formats, see https://gohugo.io/functions/format/
+  dateFormatToUse = "2006-01-02"
+  
+  toc = true                                                                            # 是否开启目录
+  autoCollapseToc = false   # Auto expand and collapse toc                              # 目录自动展开/折叠
+  fancybox = true           # see https://github.com/fancyapps/fancybox  
 
 [markup]
   defaultMarkdownHandler = "goldmark"
@@ -107,8 +136,8 @@ metaDataFormat= "yaml"
     extensions = []
     failureLevel = "fatal"
     noHeaderOrFooter = true
-    safeMode = "unsafe"
-    sectionNumbers = false
+    safeMode = "safe"
+    sectionNumbers = true
     trace = false
     verbose = true
     workingFolderCurrent = false
@@ -143,7 +172,7 @@ metaDataFormat= "yaml"
       autoHeadingIDType = "github"
     [markup.goldmark.renderer]
       hardWraps = false
-      unsafe = true
+      unsafe = false
       xhtml = false
   [markup.highlight]
     codeFences = true
