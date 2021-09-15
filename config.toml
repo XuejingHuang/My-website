@@ -92,6 +92,11 @@ metaDataFormat= "yaml"
     name       = "Resume"
     url        = "none"
 
+#[outputFormats.MarkDown]
+#  mediaType = "text/plain"
+#  isPlainText = true
+#  isHTML = false
+
 [markup]
   defaultMarkdownHandler = "goldmark"
   [markup.asciidocExt]
@@ -136,7 +141,7 @@ metaDataFormat= "yaml"
       autoHeadingIDType = "github"
     [markup.goldmark.renderer]
       hardWraps = false
-      unsafe = false
+      unsafe = true
       xhtml = false
   [markup.highlight]
     codeFences = true
