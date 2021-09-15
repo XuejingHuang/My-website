@@ -92,10 +92,6 @@ metaDataFormat= "yaml"
     name       = "Resume"
     url        = "none"
 
-#[outputFormats.MarkDown]
-#  mediaType = "text/plain"
-#  isPlainText = true
-#  isHTML = false
 
 [markup]
   defaultMarkdownHandler = "goldmark"
