@@ -1,7 +1,7 @@
 ---
 title: "MAM 2022 Pre-programme Assignment"
 author: "Xuejing Huang"
-date: "Aug 9 2021"
+date: "`r Sys.Date()`"
 tags: ["homework"]
 output:
   html_document:
