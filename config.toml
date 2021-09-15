@@ -77,9 +77,20 @@ metaDataFormat= "yaml"
     url        = "about"
 
   [[menu.main]]
+    identifier = "homepage"
+    name       = "Homepage"
+    url        = "homepage"
+
+  [[menu.main]]
     identifier = "posts"
     name       = "Posts"
     url        = "post/"
+    
+    
+  [[menu.main]]
+    identifier = "projects"
+    name       = "Projects"
+    url        = "projects/"
 
 
   [[menu.main]]
