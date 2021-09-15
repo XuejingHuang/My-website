@@ -29,7 +29,7 @@ metaDataFormat= "yaml"
   enabled = true
   enableKatex = true
   metaKeywords = "fast, hugo, theme, minimal, gruvbox"
-  headerTitle = "Jane Doe"
+  headerTitle = "Jean's website"
   copyright = "© 2021 Jane Doe.  <a href=\"https://creativecommons.org/licenses/by/4.0/\">Some rights reserved</a>."
   name = "jane_doe"
   img = "img/author.jpg"
@@ -40,21 +40,21 @@ metaDataFormat= "yaml"
   licenseUrl = ""
 
  # Social icons
-  [[params.social]]
-    name = "gitlab"
-    url  = "https://gitlab.com/avron/gruvhugo"
+#  [[params.social]]
+#    name = "gitlab"
+#    url  = "https://gitlab.com/avron/gruvhugo"
 
   [[params.social]]
     name = "email"
-    url  = "mailto:mail@mail.com"
+    url  = "huangxj_@outlook.com"
+
+#  [[params.social]]
+#    name = "gpg"
+#    url  = "https://keys.openpgp.org/"
 
   [[params.social]]
-    name = "gpg"
-    url  = "https://keys.openpgp.org/"
-
-  [[params.social]]
-    name = "twitter"
-    url  = "https://twitter.com/"
+    name = "instagram"
+    url  = "https://www.instagram.com/jing_snowball/"
 
   [[params.social]]
     name = "github"
@@ -62,7 +62,7 @@ metaDataFormat= "yaml"
 
   [[params.social]]
     name = "linkedin"
-    url  = "https://www.linkedin.com/"
+    url  = "https://www.linkedin.com/in/xuejinghuang/"
 
 [params.style]
   # add path to custom CSS files here
@@ -80,10 +80,16 @@ metaDataFormat= "yaml"
     identifier = "posts"
     name       = "Posts"
     url        = "post/"
+    
+  [[menu.main]]
+    identifier = "projects"
+    name       = "Projects"
+    url        = "projects"
+
 
   [[menu.main]]
-    identifier = "wiki"
-    name       = "Wiki"
+    identifier = "Resume"
+    name       = "Resume"
     url        = "none"
 
 [markup]
