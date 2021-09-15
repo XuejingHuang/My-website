@@ -50,7 +50,7 @@ metaDataFormat= "yaml"
 
   [[params.social]]
     name = "email"
-    url  = "mailto:mail@mail.com"
+    url  = "mailto://mail@mail.com"
 
   [[params.social]]
     name = "gpg"
