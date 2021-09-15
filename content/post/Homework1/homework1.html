@@ -1,20 +1,15 @@
----
-title: "Session 2: Homework 1"
-author: "MAM Group 5"
-date: "2021-09-15"
-output:
-  html_document:
-    theme: flatly
-    highlight: zenburn
-    number_sections: yes
-    toc: yes
-    toc_float: yes
-    code_folding: show
----
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>+++
+author = “MAM Group 5”
+title = “Homework 1”
+date = “2021-09-15”
+description = “Homework 1 for Applied Statistics”
+tags = [
+“homework”,]
++++</p>
 <div id="where-do-people-drink-the-most-beer-wine-and-spirits" class="section level1">
 <h1>Where Do People Drink The Most Beer, Wine And Spirits?</h1>
 <p>Back in 2014, <a href="https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/">fivethiryeight.com</a> published an article on alchohol consumption in different countries. The data <code>drinks</code> is available as part of the <code>fivethirtyeight</code> package. Make sure you have installed the <code>fivethirtyeight</code> package before proceeding.</p>
@@ -214,7 +209,7 @@ The variable types are:</p>
     x = &quot;Beer Servings (in cans)&quot;,
     y = &quot;Country&quot;
   )</code></pre>
-<p><img src="/projects/homework1_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" />
+<p><img src="/post/Homework1/homework1_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" />
 We will now make a plot that shows the top 25 wine consuming countries-</p>
 <pre class="r"><code>drinks %&gt;% 
   slice_max ( order_by = wine_servings, n=25 ) %&gt;% # taking top 25 countries by servings
@@ -226,7 +221,7 @@ We will now make a plot that shows the top 25 wine consuming countries-</p>
     x = &quot;Wine Servings (in glasses)&quot;,
     y = &quot;Country&quot;
   )</code></pre>
-<p><img src="/projects/homework1_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>Finally, make a plot that shows the top 25 spirit consuming countries</p>
 <pre class="r"><code>drinks %&gt;% 
   slice_max ( order_by = spirit_servings, n=25 ) %&gt;% # taking top 25 countries by servings
@@ -238,7 +233,7 @@ We will now make a plot that shows the top 25 wine consuming countries-</p>
     x = &quot;Spirit Servings&quot;,
     y = &quot;Country&quot;
   )</code></pre>
-<p><img src="/projects/homework1_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" />
+<p><img src="/post/Homework1/homework1_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" />
 &gt; Inferences &amp; Key takeaways-</p>
 <ol style="list-style-type: decimal">
 <li><p>European countries are high consumers of wine.</p></li>
@@ -908,7 +903,7 @@ movies_rating</code></pre>
        x = &quot;Rating (1-10)&quot;,
        y = &quot;Num of movies&quot;) +
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-5-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-5-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="using-ggplot-to-find-relationships-between-variables" class="section level2">
 <h2>Using <code>ggplot</code> to find relationships between variables</h2>
@@ -923,7 +918,7 @@ We have produced a scatterplot with Facebook Likes on the X-Axis and Gross Reven
     y = &quot;Gross Revenue&quot;
   )+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/gross_on_fblikes-1.png" width="648" style="display: block; margin: auto;" />
+<p><img src="/post/Homework1/homework1_files/figure-html/gross_on_fblikes-1.png" width="648" style="display: block; margin: auto;" />
 We analyze the following from the graph below-</p>
 <ol style="list-style-type: decimal">
 <li>Facebook likes do not seem like a good indicator of the gross as there is no direct correlation as seen from the scatter plot.</li>
@@ -939,7 +934,7 @@ We analyze the following from the graph below-</p>
     y = &quot;Gross Revenue&quot;
   )+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/gross_on_budget-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/gross_on_budget-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>From the plot above we see that, the budget and gross do seem correlated. The higher the budget, it is more likely that the gross may be higher.</p>
 <p>Furthermore, we examine the relationship between <code>gross</code> and <code>rating</code>.
 Segmenting the scatterplot by ‘genre’, we can see the following results-</p>
@@ -951,7 +946,7 @@ Segmenting the scatterplot by ‘genre’, we can see the following results-</p>
        x = &quot;Rating&quot;,
        y = &quot;Gross&quot;) +
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/gross_on_rating-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/gross_on_rating-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>We can see that:</p>
 <ul>
 <li><p>The higher the rating the more will be the gross for the most genres of movies.</p></li>
@@ -992,7 +987,7 @@ nyse %&gt;%
   labs(title = &quot;Number of Companies in each Sector&quot;,
        x = &quot;&quot;,
        y = &quot;Sector&quot;)</code></pre>
-<p><img src="/projects/homework1_files/figure-html/companies_per_sector-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/companies_per_sector-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>Next, we have chosen some stocks and their ticker symbols and downloaded data.
 The stocks we chose are: “EBR”,“BBL”,“AEE”,“BCE”,“BRO”,“CAT”,“BUD”,“SPY”</p>
 <pre class="r"><code># Notice the cache=TRUE argument inthe chunk options. Because getting data is time consuming, 
@@ -1070,7 +1065,7 @@ myStocks_returns_annual &lt;- myStocks %&gt;%
     y = &quot;Density&quot;
   ) +
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/density_monthly_returns-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/density_monthly_returns-1.png" width="648" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>Inferences from the plots</p>
 </blockquote>
@@ -1081,7 +1076,7 @@ myStocks_returns_annual &lt;- myStocks %&gt;%
   geom_point() + 
   ggrepel::geom_text_repel(aes(label = symbol)) +
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/risk_return_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/risk_return_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>Inferences from the plots</p>
 </blockquote>
@@ -1212,7 +1207,7 @@ hr_cleaned %&gt;%
 prop.table(table(hr_cleaned[,c(&quot;years_at_company&quot;,&quot;attrition&quot;)]),1)[,2]%&gt;%
   barplot(main=&quot;Attrition Rate vs Years At Company&quot; , xlab=&quot;Years at Company&quot; , ylab=&quot;Attrition Rate&quot;)
 abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-9-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-9-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li>As we can see from the above table only around 20% of the employees in the dataset left the company during their working years. This shows that employees do not leave that often.</li>
 </ul>
@@ -1554,14 +1549,14 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
        x = &quot;Education&quot;,
        y = &quot;Monthly Income&quot;)+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-12-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-12-1.png" width="648" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(hr_cleaned, aes(x = monthly_income, y = gender)) +
   geom_boxplot()+
   labs(title = &quot;Boxplot of Monthly Income against Gender&quot;,
        x = &quot;Monthly Income&quot;,
        y = &quot;Gender&quot;)+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-12-2.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-12-2.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li>As we can see from the boxplot of males and females and their monthly income, females have a higher median monthly income which could mean that the females in the dataset could be more educated. The doctors have the highest monthly median income and those with below college education have the least. Doctors also have the highest variability in the IQR. College has the most outliers due to its low standard deviation.</li>
 </ul>
@@ -1574,7 +1569,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
        x = &quot;Job Role&quot;,
        y = &quot;Monthly Income&quot;)+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-13-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-13-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Calculate and plot a bar chart of the mean (or median?) income by education level.</li>
 </ol>
@@ -1591,7 +1586,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
        x = &quot;Education&quot;,
        y = &quot;Average Monthly Income&quot;)+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-14-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-14-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li>As we can see the medians and means differ greatly, this is due to the outliers in the dataset with individuals with abnormally high monthly income levels.</li>
 </ul>
@@ -1606,7 +1601,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
             &quot;College&quot;, &quot;Below College&quot;)) +
   theme_wsj() +
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-15-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-15-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ol start="8" style="list-style-type: decimal">
 <li>Graph showing income vs age, faceted by <code>job_role</code></li>
 </ol>
@@ -1617,7 +1612,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
   facet_wrap(~job_role) +
   theme_wsj() +
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-16-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-16-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="challenge-1-covid-vaccination-data" class="section level1">
 <h1>Challenge 1: COVID Vaccination Data</h1>
@@ -1696,7 +1691,7 @@ data %&gt;%
   # remove the legend
   theme(legend.position = &quot;none&quot;)+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/unnamed-chunk-18-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/unnamed-chunk-18-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="challenge-2-opinion-polls-for-the-2021-german-elections" class="section level1">
 <h1>Challenge 2: Opinion polls for the 2021 German elections</h1>
@@ -1768,7 +1763,7 @@ german_election_polls %&gt;%
                       breaks = c(&quot;UNION&quot;,&quot;SPD&quot;,&quot;AFD&quot;,&quot;FDP&quot;,&quot;GRUNE&quot;,&quot;LINKE&quot;),
                       values = c(&quot;black&quot;,&quot;red&quot;,&quot;blue&quot;,&quot;yellow&quot;,&quot;dark green&quot;,&quot;purple&quot;))+
   NULL</code></pre>
-<p><img src="/projects/homework1_files/figure-html/scrape_wikipedia_polling_data-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/post/Homework1/homework1_files/figure-html/scrape_wikipedia_polling_data-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="details" class="section level1">
 <h1>Details</h1>

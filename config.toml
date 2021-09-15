@@ -81,10 +81,6 @@ metaDataFormat= "yaml"
     name       = "Posts"
     url        = "post/"
     
-  [[menu.main]]
-    identifier = "projects"
-    name       = "Projects"
-    url        = "projects/"
 
 
   [[menu.main]]
