@@ -92,7 +92,10 @@ drinks %>%
     y = "Country"
   )
 ```
+
+
 ### Top 25 wine consuming countries
+
 
 ```{r wine_plot}
 drinks %>% 
@@ -122,6 +125,7 @@ drinks %>%
   )
 
 ```
+
 > Inferences & Key takeaways-
 
 1.  European countries are high consumers of wine.
