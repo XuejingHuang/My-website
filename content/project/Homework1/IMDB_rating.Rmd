@@ -1,0 +1,236 @@
+---
+title: "IMDB Ratings Analysis"
+author: "LBS-MAM22 Group 5"
+date: "`r Sys.Date()`"
+tags: ["homework", "data visualisation"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(fivethirtyeight)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(rvest) # to scrape wikipedia page
+```
+
+# Analysis of movies- IMDB dataset
+
+We will look at a subset sample of movies, taken from the [Kaggle IMDB 5000 movie dataset](https://www.kaggle.com/carolzhangdc/imdb-5000-movie-dataset)
+
+Besides the obvious variables of `title`, `genre`, `director`, `year`, and `duration`, the rest of the variables are as follows:
+
+-   `gross` : The gross earnings in the US box office, not adjusted for inflation
+-   `budget`: The movie's budget
+-   `cast_facebook_likes`: the number of facebook likes cast members received
+-   `votes`: the number of people who voted for (or rated) the movie in IMDB
+-   `reviews`: the number of reviews for that movie
+-   `rating`: IMDB average rating
+
+## Import, inspection, and cleaning of dataset
+
+From the dataset, we can see that:
+1.  There are no missing values in the dataset.
+2.  The movies with duplicated entries. There are Duplicates (2907 distinct titles in 2961 rows)
+The following piece of code shows how we have cleaned it.
+
+```{r,load_movies, warning=FALSE, message=FALSE}
+
+movies <- read_csv(here::here("data", "movies.csv"))
+glimpse(movies)
+
+# no missing values. There are Duplicates (2907 distinct titles in 2961 rows). 
+skim(movies)
+# show the duplicate movies
+movies %>% count(title, sort=T)
+# to see what happens with the duplicates
+movies %>% filter(title=="Homes")
+
+# `distinct` function can only keep the first entry but not latest
+# movies <- distinct(movies, title, .keep_all=T)
+length(unique(movies$title))
+
+movies <- movies %>% 
+  group_by(title) %>% 
+  filter(votes == max(votes)) %>%
+  ungroup()
+
+# there are still duplicates
+movies %>% count(title, sort=T)
+# to see what happens with the duplicates
+movies %>% filter(title=="Chasing Liberty")
+# do the filter only for the entries of Chasing Liberty 
+movies <- movies %>%
+  group_by(title) %>% 
+  filter(cast_facebook_likes==max(cast_facebook_likes)) %>%
+  ungroup()
+
+skim(movies)
+
+```
+
+
+The following table shows the count of movies by genre, ranked in descending order
+
+```{r}
+movies %>% count(genre, sort = TRUE)
+
+```
+
+Here we have a table with the average gross earning and budget (`gross` and `budget`) by genre. 
+We have calculated a variable `return_on_budget` which shows how many \$ did a movie make at the box office for each \$ of its budget. We have ranked genres by this `return_on_budget` in descending order-
+
+```{r}
+
+movies %>% 
+  mutate(movies_return = gross/budget ) %>%
+  group_by(genre) %>%
+  summarise(avg_gross = mean(gross),
+            avg_budget = mean(budget),
+            genre_return_on_budget = sum(gross)/sum(budget),
+            movie_mean_return_on_budget = mean(movies_return)) %>%
+  arrange(-movie_mean_return_on_budget)
+  
+
+
+```
+
+Here we have a table that shows the top 15 directors who have created the highest gross revenue in the box office. We have shown the total gross amount, the mean, median, and standard deviation per director.
+
+```{r}
+movies %>%
+  group_by(director) %>%
+  summarise(total_gross = sum(gross),
+            mean_gross = mean(gross),
+            median_gross = median(gross),
+            standard_dev_gross = sd(gross)) %>%
+  slice_max ( order_by = total_gross, n = 15)
+  
+```
+
+We have produced a table that describes how ratings are distributed by genre. The histogram visually shows how ratings are distributed.
+
+```{r}
+movies_rating <- movies %>%
+  group_by(genre) %>%
+  summarise(mean_rating = mean(rating),
+            min_rating = min(rating),
+             max_rating = max(rating),
+             sd_rating = sd(rating)) 
+movies_rating
+
+```
+
+```{r}
+movies %>%
+  ggplot(mapping = aes(x = rating)) + 
+  geom_histogram(bins=30) +
+  facet_wrap(~genre)+
+  labs(title = "Distribution of ratings in each genre",
+       x = "Rating (1-10)",
+       y = "Num of movies") +
+  NULL
+
+```
+
+## Using `ggplot` to find relationships between variables
+
+Understanding the correlation between `gross` and `cast_facebook_likes`. 
+We have produced a scatterplot with Facebook Likes on the X-Axis and Gross Revenue on the Y-Axis. 
+
+```{r, gross_on_fblikes, warnings=FALSE, messeges=FALSE}
+ggplot(movies, aes(x = cast_facebook_likes, y = gross)) +
+  geom_point() +
+  geom_smooth(method = "lm")+
+   labs(
+    title = "Relationship of Facebook Likes vs Gross Revenue of the Movie",
+    x = "Facebook Likes",
+    y = "Gross Revenue"
+  )+
+  NULL
+
+```
+We analyze the following from the graph below- 
+
+1.  Facebook likes do not seem like a good indicator of the gross as there is no direct correlation as seen from the scatter plot.
+2.  We mapped gross to Y axes and number of facebook likes to X, because the gross is the final outcome of a movie, aka dependent variable.
+
+Now we examine the relationship between `gross` and `budget` by creating a scatterplot.
+
+```{r, gross_on_budget}
+ggplot(movies, aes(x = budget , y = gross)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+   labs(
+    title = "Relationship of Gross Revenue vs Budget of the Movie",
+    x = "Movie Budget",
+    y = "Gross Revenue"
+  )+
+  NULL
+```
+
+From the plot above we see that, the budget and gross do seem correlated. The higher the budget, it is more likely that the gross may be higher.
+
+Furthermore, we examine the relationship between `gross` and `rating`. 
+Segmenting the scatterplot by 'genre', we can see the following results-
+
+```{r, gross_on_rating, warnings=FALSE, messages=FALSE}
+ggplot(movies, aes(x = rating , y = gross)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~genre) +
+  labs(title = "Gross vs Rating of Movies For Each Genre ",
+       x = "Rating",
+       y = "Gross") +
+  NULL
+
+```
+
+We can see that:
+
+-   The higher the rating the more will be the gross for the most genres of movies.
+
+-   For movies of some genres like 'Documentary', 'Mystery', 'Horror' and 'Sci-Fi', the gross has a very less change with respect to rating. Documentaries certainly have a different business model.
+
+-   Negative correlation even appears.
+
+-   Sample size of genres like 'Family', 'Romance' , 'Musical' is very small with under three values. 
+
+
+# Team members
+
+- Alex Kubbinga
+- Clara Moreno Sanchez
+- Jean Huang
+- Raghav Mehta
+- Raina Doshi
+- Yuan Gao
