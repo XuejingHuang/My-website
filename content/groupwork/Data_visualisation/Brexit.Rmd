@@ -60,7 +60,7 @@ library(janitor)
 We want to replicate this graph regarding the relationship between brexit vote and parties:
 
 ```{r brexit_challenge, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "brexit.png"), error = FALSE)
+knitr::include_graphics('my-website/static/images/brexit.png')
 ```
 
 Below is our codes for replicating the graph:
