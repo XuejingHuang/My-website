@@ -1,0 +1,248 @@
+---
+title: "IBM HR Analysis"
+author: "MAM Group 5"
+date: "`r Sys.Date()`"
+tags: ["data_visualisation"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+A group project analysing multiple variables based on a fictional data set created by IBM data scientists
+
+<!--more--> 
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(fivethirtyeight)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(rvest) # to scrape wikipedia page
+```
+
+# IBM HR Analytics
+
+We analyse a data set on Human Resource Analytics. The [IBM HR Analytics Employee Attrition & Performance data set](https://www.kaggle.com/pavansubhasht/ibm-hr-analytics-attrition-dataset) is a fictional data set created by IBM data scientists. Among other things, the data set includes employees' income, their distance from work, their position in the company, their level of education, etc. A full description can be found on the website.
+
+First let us load the data:
+
+```{r}
+
+hr_dataset <- read_csv(here::here("data", "datasets_1067_1925_WA_Fn-UseC_-HR-Employee-Attrition.csv"))
+glimpse(hr_dataset)
+
+```
+
+Cleaning the data:
+
+```{r}
+
+hr_cleaned <- hr_dataset %>% 
+  clean_names() %>% 
+  mutate(
+    education = case_when(
+      education == 1 ~ "Below College",
+      education == 2 ~ "College",
+      education == 3 ~ "Bachelor",
+      education == 4 ~ "Master",
+      education == 5 ~ "Doctor"
+    ),
+    environment_satisfaction = case_when(
+      environment_satisfaction == 1 ~ "Low",
+      environment_satisfaction == 2 ~ "Medium",
+      environment_satisfaction == 3 ~ "High",
+      environment_satisfaction == 4 ~ "Very High"
+    ),
+    job_satisfaction = case_when(
+      job_satisfaction == 1 ~ "Low",
+      job_satisfaction == 2 ~ "Medium",
+      job_satisfaction == 3 ~ "High",
+      job_satisfaction == 4 ~ "Very High"
+    ),
+    performance_rating = case_when(
+      performance_rating == 1 ~ "Low",
+      performance_rating == 2 ~ "Good",
+      performance_rating == 3 ~ "Excellent",
+      performance_rating == 4 ~ "Outstanding"
+    ),
+    work_life_balance = case_when(
+      work_life_balance == 1 ~ "Bad",
+      work_life_balance == 2 ~ "Good",
+      work_life_balance == 3 ~ "Better",
+      work_life_balance == 4 ~ "Best"
+    )
+  ) %>% 
+  select(age, attrition, daily_rate, department,
+         distance_from_home, education,
+         gender, job_role,environment_satisfaction,
+         job_satisfaction, marital_status,
+         monthly_income, num_companies_worked, percent_salary_hike,
+         performance_rating, total_working_years,
+         work_life_balance, years_at_company,
+         years_since_last_promotion)
+
+```
+
+```{r}
+glimpse(hr_cleaned)
+```
+
+
+## How often do people leave the company (`attrition`)
+
+```{r}
+# 1233 employees stay while 237 left (19.2%).
+hr_cleaned %>% 
+  group_by(attrition)%>% 
+  summarise(count = count(attrition))
+
+# to see the how attrition rate changes with years at company
+prop.table(table(hr_cleaned[,c("years_at_company","attrition")]),1)[,2]%>%
+  barplot(main="Attrition Rate vs Years At Company" , xlab="Years at Company" , ylab="Attrition Rate")
+abline(h=0.192,col="red") # avergae attrition rate
+
+```
+
+-   As we can see from the above table only around 20% of the employees in the dataset left the company during their working years. This shows that employees do not leave that often.
+
+After analyzing the `age`, `years_at_company`, `monthly_income` and `years_since_last_promotion`, we can see from the histograms from the summary statistics, the only variable that looks normally distributed is age.
+
+```{r}
+skim(hr_cleaned)
+```
+
+## Distirbutions of `job_satisfaction` and `work_life_balance` 
+
+```{r}
+hr_cleaned %>%  
+  group_by(job_satisfaction)%>% 
+  summarise(countjs = n(),
+            percentagejs = countjs/nrow(hr_cleaned)*100)
+
+
+hr_cleaned %>%  
+  group_by(work_life_balance)%>% 
+  summarise(countwlb= n(),
+            percentagewlb = round(countwlb/nrow(hr_cleaned)*100,2))
+```
+
+-   Job satisfaction is distributed quite evenly however the categories of High and Very High are more common with around 30% each. In terms of work life balance very few people have Bad or the Best work life balance. The majority of people have better work life balance.
+
+## Relationship between monthly income vs education and Monthly income vs gender
+
+```{r}
+ggplot(hr_cleaned, aes(x = fct_relevel(education, 
+            "Doctor", "Master", "Bachelor", 
+            "College", "Below College"), y = monthly_income)) +
+  geom_boxplot()+
+  labs(title = "Boxplot of Monthly Income against Education",
+       x = "Education",
+       y = "Monthly Income")+
+  NULL
+
+ggplot(hr_cleaned, aes(x = monthly_income, y = gender)) +
+  geom_boxplot()+
+  labs(title = "Boxplot of Monthly Income against Gender",
+       x = "Monthly Income",
+       y = "Gender")+
+  NULL
+```
+
+-   As we can see from the boxplot of males and females and their monthly income, females have a higher median monthly income which could mean that the females in the dataset could be more educated. The doctors have the highest monthly median income and those with below college education have the least. Doctors also have the highest variability in the IQR. College has the most outliers due to its low standard deviation.
+
+##  Relationship between income vs job role
+
+```{r}
+ggplot(hr_cleaned, aes(x=fct_reorder(job_role,-monthly_income), y=monthly_income)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Monthly Income against Job Role",
+       x = "Job Role",
+       y = "Monthly Income")+
+  NULL
+```
+
+## Relationship between income by education level
+
+```{r}
+hr_cleaned %>% 
+  group_by(education) %>%
+  summarise(medianinc = median(monthly_income),
+            meaninc = mean(monthly_income)) %>% 
+  ggplot(aes(x = fct_relevel(education, 
+            "Doctor", "Master", "Bachelor", 
+            "College", "Below College"),
+            y=meaninc)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Monthly Income of Each Education Level",
+       x = "Education",
+       y = "Average Monthly Income")+
+  NULL
+```
+
+-   As we can see the medians and means differ greatly, this is due to the outliers in the dataset with individuals with abnormally high monthly income levels.
+
+## Distribution of income by education level
+
+```{r}
+
+hr_cleaned %>% 
+  ggplot(aes(x=monthly_income)) +
+  geom_histogram(bins=30)+
+  facet_wrap(~fct_relevel(education, 
+            "Doctor", "Master", "Bachelor", 
+            "College", "Below College")) +
+  theme_wsj() +
+  NULL
+
+```
+
+# Relationship between income vs age, faceted by `job_role`
+
+```{r, warnings=FALSE, messages=FALSE}
+
+hr_cleaned %>% 
+  ggplot(aes(y=monthly_income, x=age)) +
+  geom_point() +
+  geom_smooth(method="lm")+
+  facet_wrap(~job_role) +
+  theme_wsj() +
+  NULL
+
+```
+
+
+# Team members
+
+- Alex Kubbinga
+- Clara Moreno Sanchez
+- Jean Huang
+- Raghav Mehta
+- Raina Doshi
+- Yuan Gao

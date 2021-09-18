@@ -1,0 +1,67 @@
+---
+title: "Brexit"
+author: "LBS-MAM22 Group 5"
+date: "2021-09-18"
+tags: ["data_visualisation"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>A group data-visualisation project replicating a graph showing the relationship between the percentage of voting for brexit and the percentage of UK parties in a county in 2015</p>
+<!--more-->
+<div id="challenge-1-brexit-plot" class="section level1">
+<h1>Challenge 1: Brexit plot</h1>
+<p>We want to replicate this graph regarding the relationship between brexit vote and parties:</p>
+<p><img src="/Users/huangxuejing/Desktop/AM-01/my-website/images/brexit.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Below is our codes for replicating the graph:</p>
+<pre class="r"><code>brexit_results &lt;- read_csv(here::here(&quot;data&quot;,&quot;brexit_results.csv&quot;))
+
+brexit_results %&gt;% 
+  # transform the dataframe
+  pivot_longer(cols = con_2015:ukip_2015,
+               names_to = &quot;party&quot;,
+               values_to = &quot;Party_percent&quot;) %&gt;%
+  # rename columns names of the parties
+  mutate(party = case_when(
+    party == &quot;con_2015&quot; ~ &quot;Conservative&quot;,
+    party == &quot;lab_2015&quot; ~ &quot;Labour&quot;,
+    party == &quot;ld_2015&quot; ~ &quot;Lib Dems&quot;,
+    party == &quot;ukip_2015&quot; ~ &quot;UKIP&quot;
+  )) %&gt;% 
+  ggplot(aes(x=Party_percent, y=leave_share, color=party))+
+  # scatter plot
+  geom_point(alpha = 0.5)+
+  # linear smooth line
+  geom_smooth(method = &quot;lm&quot;)+
+  # colour the points of each party
+  scale_colour_manual(values = c(&quot;#0087dc&quot;,&quot;#D50000&quot;,&quot;#FDBB30&quot;,&quot;#EFE600&quot;))+
+  # legend settings
+  theme(legend.position = &quot;bottom&quot;,
+        legend.title = element_blank())+
+  labs(title=&quot;How Political Affiliation Translated to Brexit Voting&quot;,
+       x=&quot;Party % in the UK 2015 general election&quot;,
+       y=&quot;Leave % in the 2015 Brexit referendum&quot;)+
+  theme_bw()+
+  NULL</code></pre>
+<p><img src="/gg/Data_visualisation/Brexit_files/figure-html/load_brexit_data-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+<div id="team-members" class="section level1">
+<h1>Team members</h1>
+<ul>
+<li>Alex Kubbinga</li>
+<li>Clara Moreno Sanchez</li>
+<li>Jean Huang</li>
+<li>Raghav Mehta</li>
+<li>Raina Doshi</li>
+<li>Yuan Gao</li>
+</ul>
+</div>

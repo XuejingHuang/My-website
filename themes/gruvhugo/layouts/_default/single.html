@@ -1,6 +1,6 @@
 {{define "main"}}
 <section class="intro">
-    {{if eq .Section "post"}}
+    {{if or (eq .Section "post") (eq .Section "groupwork") (eq .Section "project")}}
     <div class="post-header">
     <h2 class="post-title"><a class="go-back" href="{{ "post/" | absLangURL}}">
 	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>

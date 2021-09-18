@@ -1,0 +1,146 @@
+---
+title: "IMDB Ratings vs. Directors"
+author: "Jean"
+date: "2021-09-18"
+tags: ["data_visualisation" , "hypo-testing"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>An individual project exploring the difference in IMDB rating for movies directed by Steven Spielberg and Tim Burton, using hypothesis testing by three different approaches</p>
+<!--more-->
+<div id="imdb-ratings-differences-between-directors" class="section level1">
+<h1>IMDB ratings: Differences between directors</h1>
+<p>We would like to explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. First, we tried to replicate the graph showing the confidence intervals for the mean ratings of these two directors and as you can see they overlap.</p>
+<p><img src="/Users/huangxuejing/Desktop/AM-01/my-website/images/directors.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>To replicate the graph, we first filtered out the movies of these two directors, then group by the director and summarise the mean, std, no. of movies, to calculate the standard error, t_critical and margin of error, to get the confidence interval of the mean ratings of the movies of the two directors.</p>
+<p>Then we plotted the data and added error bars to the mean ratings, and indicate the overlap of confidence intervals.</p>
+<pre class="r"><code>movies &lt;- read_csv(here::here(&#39;data&#39;, &#39;movies.csv&#39;))
+# modify the dataset for plot
+movies_comp &lt;- movies %&gt;% 
+  filter(director %in% c(&quot;Steven Spielberg&quot;,&quot;Tim Burton&quot;)) %&gt;%
+  group_by(director) %&gt;% 
+  summarise(mean_rating = mean(rating),
+            std_rating = sd(rating),
+            count=n(),
+            se_rating = std_rating / sqrt(count),
+            t_critical = qt(0.975, count-1),
+            margin_of_error = t_critical * se_rating,
+            rating_low = mean_rating - margin_of_error,
+            rating_high = mean_rating + margin_of_error) %&gt;% 
+  arrange(desc(mean_rating))
+
+# plot the data, add error bars and label the datapoint
+movies_comp %&gt;% 
+  ggplot(mapping = aes(x=mean_rating,y=fct_relevel(director, levels=c(&quot;Tim Burton&quot;,&quot;Steven Spielberg&quot;))))+
+  
+  geom_point(size = 5, mapping = aes(color = director))+
+  geom_errorbar(aes(xmin = rating_low, xmax = rating_high, color = director), width = 0.1,size = 1.5)+
+  ggrepel::geom_text_repel(aes(x=mean_rating, label = round(mean_rating, 2)), size=4, position = position_dodge(0.9)) +
+  ggrepel::geom_text_repel(aes(x=rating_low, label = round(rating_low, 2)),size = 3, position = position_dodge(0.9)) +
+  ggrepel::geom_text_repel(aes(x=rating_high, label = round(rating_high, 2)),size = 3, position = position_dodge(0.9)) +
+
+# plot the grey rectangle to show the overlap of confidence intervals
+  geom_rect(xmin = 7.27,xmax = 7.33, ymin=0, ymax=Inf, alpha=0.4)+
+  labs(title = &quot;Do Spielberg and Burton have the same mean IMDB ratings?&quot;,
+       subtitle = &quot;95% confidence interval overlap&quot;,
+       x = &quot;Mean IMDB Rating&quot;,
+       y = &quot;&quot;) +
+  NULL</code></pre>
+<p><img src="/project/IMDB_directors_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>In addition, we ran a hypothesis test using both the <code>t.test</code> command and the <code>infer</code> package to simulate from a null distribution, where we assume zero difference between the two.</p>
+<p>First of all, the Null hypothesis and the alternaltive hypothesis are:</p>
+<ul>
+<li>H0: Spielburg and Burton have the same mean IMDB ratings for the movies they direct</li>
+<li>H1: Spielburg has a different mean IMDB ratings from Burton</li>
+</ul>
+<pre class="r"><code># movies_comp
+
+# calculate p_value by hand
+t_stat =  (7.57-6.93)/sqrt(0.695*0.695/23 + 0.749*0.749/16)
+# p_value = 2*0.0035
+p_value = 2*(1-pt(2.7,37))
+paste(&quot;t_stat:&quot;,t_stat)</code></pre>
+<pre><code>## [1] &quot;t_stat: 2.70295796381348&quot;</code></pre>
+<pre class="r"><code>paste(&quot;p_value:&quot;,p_value)</code></pre>
+<pre><code>## [1] &quot;p_value: 0.0103936041036872&quot;</code></pre>
+<p>As we can see from the calculation above, the t_stat by hand:t_stat = 2.7, p_value = 0.01, indicating that H0 should be rejected.</p>
+<p>Next we use the <code>t.test</code> command:</p>
+<pre class="r"><code>movies &lt;- read_csv(here::here(&quot;data&quot;, &quot;movies.csv&quot;))
+glimpse(movies)</code></pre>
+<pre><code>## Rows: 2,961
+## Columns: 11
+## $ title               &lt;chr&gt; &quot;Avatar&quot;, &quot;Titanic&quot;, &quot;Jurassic World&quot;, &quot;The Avenge…
+## $ genre               &lt;chr&gt; &quot;Action&quot;, &quot;Drama&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;…
+## $ director            &lt;chr&gt; &quot;James Cameron&quot;, &quot;James Cameron&quot;, &quot;Colin Trevorrow…
+## $ year                &lt;dbl&gt; 2009, 1997, 2015, 2012, 2008, 1999, 1977, 2015, 20…
+## $ duration            &lt;dbl&gt; 178, 194, 124, 173, 152, 136, 125, 141, 164, 93, 1…
+## $ gross               &lt;dbl&gt; 7.61e+08, 6.59e+08, 6.52e+08, 6.23e+08, 5.33e+08, …
+## $ budget              &lt;dbl&gt; 2.37e+08, 2.00e+08, 1.50e+08, 2.20e+08, 1.85e+08, …
+## $ cast_facebook_likes &lt;dbl&gt; 4834, 45223, 8458, 87697, 57802, 37723, 13485, 920…
+## $ votes               &lt;dbl&gt; 886204, 793059, 418214, 995415, 1676169, 534658, 9…
+## $ reviews             &lt;dbl&gt; 3777, 2843, 1934, 2425, 5312, 3917, 1752, 1752, 35…
+## $ rating              &lt;dbl&gt; 7.9, 7.7, 7.0, 8.1, 9.0, 6.5, 8.7, 7.5, 8.5, 7.2, …</code></pre>
+<pre class="r"><code>movies_hypo &lt;- movies %&gt;%
+  filter(director %in% c(&quot;Steven Spielberg&quot;,&quot;Tim Burton&quot;)) 
+
+t.test(rating ~ director, data = movies_hypo)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  rating by director
+## t = 3, df = 31, p-value = 0.01
+## alternative hypothesis: true difference in means between group Steven Spielberg and group Tim Burton is not equal to 0
+## 95 percent confidence interval:
+##  0.16 1.13
+## sample estimates:
+## mean in group Steven Spielberg       mean in group Tim Burton 
+##                           7.57                           6.93</code></pre>
+<ul>
+<li>From the <code>t.test</code>, we get the t statistics at 2.7 and the p-value at 0.01, which deliver the same message that H0 should be rejected.</li>
+</ul>
+<p>Finally, we run the simulation from a null distribution where we hypothesize that the meaning ratings for Speilburg and Burton are the same.</p>
+<pre class="r"><code>diff &lt;- movies_hypo %&gt;%
+  specify(rating ~ director) %&gt;%
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;Steven Spielberg&quot;, &quot;Tim Burton&quot;))
+
+set.seed(1234)
+null_dist_movies &lt;- movies_hypo %&gt;%
+  # specify variables
+  specify(rating ~ director) %&gt;%
+  
+  # assume independence, i.e, there is no difference
+  hypothesize(null = &quot;independence&quot;) %&gt;%
+  
+  # generate 1000 reps, of type &quot;permute&quot;
+  generate(reps = 1000, type = &quot;permute&quot;) %&gt;%
+  
+  # calculate statistic of difference, namely &quot;diff in means&quot;
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;Steven Spielberg&quot;, &quot;Tim Burton&quot;))
+
+null_dist_movies %&gt;% 
+  visualise()+
+  shade_p_value(obs_stat = diff, direction = &quot;two-sided&quot;)</code></pre>
+<p><img src="/project/IMDB_directors_files/figure-html/unnamed-chunk-3-1.png" width="648" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p_value &lt;- null_dist_movies %&gt;% 
+  get_pvalue(obs_stat = diff, direction=&quot;both&quot;)
+
+p_value</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   p_value
+##     &lt;dbl&gt;
+## 1   0.008</code></pre>
+<ul>
+<li><p>The exercise gives a p value of 0.008.</p></li>
+<li><p>Three methods deliver the same message that H0 should be rejected. We are 95% confident that Spielburg’s movies are rated higher on IMDB than Burton’s movies.</p></li>
+</ul>
+</div>

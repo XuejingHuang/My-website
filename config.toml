@@ -30,8 +30,8 @@ metaDataFormat= "yaml"
   enableKatex = true
   metaKeywords = "fast, hugo, theme, minimal, gruvbox"
   headerTitle = "Jean's website"
-  copyright = "© 2021 Jane Doe.  <a href=\"https://creativecommons.org/licenses/by/4.0/\">Some rights reserved</a>."
-  name = "jane_doe"
+  #copyright = "© 2021 Jane Doe.  <a href=\"https://creativecommons.org/licenses/by/4.0/\">Some rights reserved</a>."
+  #name = "jane_doe"
   img = "images/author.jpg"
   img_title = ""
   icon = "img/logo.png"
@@ -92,6 +92,11 @@ metaDataFormat= "yaml"
     identifier = "projects"
     name       = "Projects"
     url        = "project/"
+
+[[menu.main]]
+    identifier = "groupwork"
+    name       = "Groupwork"
+    url        = "groupwork/"
 
 
   [[menu.main]]
@@ -182,7 +187,7 @@ metaDataFormat= "yaml"
     lineNos = false
     lineNumbersInTable = true
     noClasses = true
-    style = "monokai"
+    style = "Twilight"
     tabWidth = 4
   [markup.tableOfContents]
     endLevel = 3

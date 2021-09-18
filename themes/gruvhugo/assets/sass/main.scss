@@ -8,14 +8,14 @@ html{
 body {
     margin: 0;
     padding: 0;
-    background: $light-color;
+    background: #fff7ef;
     color: #454545;
     font-size: calc(1em + 0.22vw);
     box-sizing: border-box;
     line-height: 1.4;
     ::selection {
         color: $light-color;
-        background: $dark-color;
+        background: #b01d35;
     }
     min-height: 80vh;
 }
@@ -41,6 +41,7 @@ body.dark {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    font-family: Bradley Hand, cursive;
 }
 
 .name {
@@ -48,21 +49,18 @@ body.dark {
     flex: 1;
     text-align: left;
     width: 80%;
+    
 }
 
-.link, sup a {
-    border-right: 0px;
-    border-top: 0px;
-    border-left: 0px;
-    border-bottom: 2px solid;
-    border-style: dotted;
-    text-decoration: none;
+.link, sup a {  
+    text-decoration: underline;
     color: $primary-accent-color;
 }
 
 .content {
     margin-top: 10px;
     border-top: 2px #808080 solid;
+    
 }
 
 .line {
@@ -78,12 +76,7 @@ body.dark {
 
 p, li {
     a{
-        border-right: 0px;
-        border-top: 0px;
-        border-left: 0px;
-        border-bottom: 2px solid;
-        border-style: dotted;
-        text-decoration: none;
+        text-decoration: underline;
         color: $primary-accent-color;
     }
 }
@@ -99,12 +92,13 @@ p, li {
 .post-header{
     display: flex;
     align-items: center;
+    
 }
 .post-title {
     margin: 5px 0px;
     overflow-wrap: break-word;
     hyphens: manual;
-    font-family: serif;
+    font-family: Optima;
 }
 
 .post-dets {
@@ -123,7 +117,7 @@ p, li {
 }
 
 .tag {
-    background: #e25555;
+    background: #f77086;
     color: $light-color;
     padding: 5px;
     border-radius: 5px;
@@ -139,7 +133,7 @@ p, li {
     margin: 5px 0px;
 }
 .well h3{
-    font-family: serif;
+    font-family: Optima;
 }
 
 .label {
@@ -184,11 +178,13 @@ p, li {
     flex-direction: column;
     width: 50%;
     margin: auto;
+    font-family: Optima;
 }
 
 .intro {
     display: flex;
     flex-direction: column;
+    font-family: Optima;
 }
 
 .intro p {
@@ -196,7 +192,7 @@ p, li {
 }
 
 .intro-quote {
-    font-family: serif;
+    font-family: Bradley Hand;
     list-style: none;
     font-style: italic;
     text-align: center;
@@ -223,6 +219,7 @@ ul li img {
 
 blockquote {
     margin-left: 0;
+    
 }
 
 .nav {
@@ -347,14 +344,17 @@ pre {
     padding: 10px;
     background-color: #2c2c2c;
     border-radius: 5px;
-    font-family: monospace;
+    font-family: Bradley Hand;
     font-size: calc(0.7em + 0.13vw);
     overflow-x: auto;
 }
 
 code {
     background: #2c2c2c;
+    border-radius: 3px;
     color: $light-color;
+    font-size: calc(0.9em + 0.2vw);
+    font-family: Optima;
 }
 
 @media screen and (max-width: 1024px) {
