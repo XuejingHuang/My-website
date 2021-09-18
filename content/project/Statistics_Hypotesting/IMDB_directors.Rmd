@@ -2,7 +2,7 @@
 title: "IMDB Ratings vs. Directors"
 author: "Jean"
 date: "`r Sys.Date()`"
-tag: ["data_visualisation" , "hypo-testing"]
+tags: ["data_visualisation" , "hypo-testing"]
 output:
   html_document:
     theme: flatly
