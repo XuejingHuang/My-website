@@ -58,11 +58,8 @@ An individual project exploring the difference in IMDB rating for movies directe
 
 # IMDB ratings: Differences between directors
 
-We would like to explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. First, we tried to replicate the ![graph](/img/directors.png) showing the confidence intervals for the mean ratings of these two directors and as you can see they overlap.
+We would like to explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. First, we tried to replicate the ![graph](/images/directors.png) showing the confidence intervals for the mean ratings of these two directors and as you can see they overlap.
 
-```{r directors, echo=FALSE, out.width="100%"}
-knitr::include_graphics("img/directors.png")
-```
 
 To replicate the graph, we first filtered out the movies of these two directors, then group by the director and summarise the mean, std, no. of movies, to calculate the standard error, t_critical and margin of error, to get the confidence interval of the mean ratings of the movies of the two directors.
 

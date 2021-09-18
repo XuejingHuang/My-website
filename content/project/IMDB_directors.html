@@ -1,7 +1,7 @@
 ---
 title: "IMDB Ratings vs. Directors"
 author: "Jean"
-date: "2021-09-18"
+date: "2021-09-19"
 tags: ["data_visualisation" , "hypo-testing"]
 output:
   html_document:
@@ -20,8 +20,7 @@ output:
 <!--more-->
 <div id="imdb-ratings-differences-between-directors" class="section level1">
 <h1>IMDB ratings: Differences between directors</h1>
-<p>We would like to explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. First, we tried to replicate the graph showing the confidence intervals for the mean ratings of these two directors and as you can see they overlap.</p>
-<p><img src="/Users/huangxuejing/Desktop/AM-01/my-website/images/directors.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>We would like to explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. First, we tried to replicate the <img src="/images/directors.png" alt="graph" /> showing the confidence intervals for the mean ratings of these two directors and as you can see they overlap.</p>
 <p>To replicate the graph, we first filtered out the movies of these two directors, then group by the director and summarise the mean, std, no. of movies, to calculate the standard error, t_critical and margin of error, to get the confidence interval of the mean ratings of the movies of the two directors.</p>
 <p>Then we plotted the data and added error bars to the mean ratings, and indicate the overlap of confidence intervals.</p>
 <pre class="r"><code>movies &lt;- read_csv(here::here(&#39;data&#39;, &#39;movies.csv&#39;))
