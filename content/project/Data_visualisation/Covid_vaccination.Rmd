@@ -1,0 +1,169 @@
+---
+title: "Covid Vaccination Analysis"
+author: "LBS-MAM22 Group 5"
+date: "`r Sys.Date()`"
+tags: ["groupwork", "data_visualisation"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(fivethirtyeight)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(rvest) # to scrape wikipedia page
+```
+
+# Challenge 1: COVID Vaccination Data
+
+We want to replicate a graph from the article [The Racial Factor: There's 77 Counties Which Are Deep Blue But Also Low-Vaxx. Guess What They Have In Common?](https://acasignups.net/21/07/18/racial-factor-theres-77-counties-which-are-deep-blue-also-low-vaxx-guess-what-they-have) 
+
+```{r challenge1, echo=FALSE, out.width="90%"}
+knitr::include_graphics(here::here("images", "vaxxes_by_state_red_blue_every_county_070321_1.jpg"), error = FALSE)
+```
+
+```{r, echo=FALSE, cache=TRUE}
+
+# Download CDC vaccination by county
+cdc_url <- "https://data.cdc.gov/api/views/8xkx-amqh/rows.csv?accessType=DOWNLOAD"
+vaccinations <- vroom(cdc_url) %>% 
+  janitor::clean_names() %>% 
+  filter(fips != "UNK",date=="09/03/2021") # remove counties that have an unknown (UNK) FIPS code, keep the most recent data
+
+# Download County Presidential Election Returns
+# https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/VOQCHQ
+election2020_results <- vroom(here::here("data", "countypres_2000-2020.csv")) %>% 
+  janitor::clean_names() %>% 
+  
+  # just keep the results for the 2020 election
+  filter(year == "2020") %>% 
+  
+  # change original name county_fips to fips, to be consistent with the other two files
+  rename (fips = county_fips)
+
+# Download county population data
+population_url <- "https://www.ers.usda.gov/webdocs/DataFiles/48747/PopulationEstimates.csv?v=2232"
+population <- vroom(population_url) %>% 
+  janitor::clean_names() %>% 
+  
+  # select the latest data, namely 2019
+  select(fips = fip_stxt, pop_estimate_2019) %>% 
+  
+  # pad FIPS codes with leading zeros, so they are always made up of 5 characters
+  mutate(fips = stringi::stri_pad_left(fips, width=5, pad = "0"))
+```
+
+```{r}
+# 3154 unique fips code in election2020_results
+length(unique(election2020_results$fips))
+# check unique values of candidate names
+unique(election2020_results$candidate)
+
+data <- election2020_results %>% 
+  mutate(votes_percentage = candidatevotes/totalvotes) %>% # calculate percentage
+  filter(candidate=="DONALD J TRUMP", mode=="TOTAL") %>% # we only need Trump votes 
+  inner_join(vaccinations,by = "fips") %>% # inner join with vaccinations data
+  inner_join(population,by = "fips") # inner join with population data
+
+
+# generate graph below
+# install.packages("ggpubr") # to show equation easily
+library(ggpubr)
+# calculate actual vaccination percentage
+actual = sum(data$series_complete_yes)/sum(data$pop_estimate_2019)
+data %>% 
+  # filter out 0% vaccinated points
+  filter(series_complete_pop_pct>0) %>%
+  ggplot() +
+  geom_point(aes(x=votes_percentage,y=series_complete_pop_pct/100,size=pop_estimate_2019),shape=21,fill="light blue")+
+  
+  # scale circle size
+  scale_size(range = c(0, 20)) + 
+  
+  # add points in the center of circles
+  geom_point(aes(x=votes_percentage,y=series_complete_pop_pct/100),size=0.5)+ 
+  
+  # add regression line
+  geom_smooth(aes(x=votes_percentage,y=series_complete_pop_pct/100),
+              method="lm",linetype="dotted",colour="blue",se=FALSE)+ 
+  
+  # add the equation of regression line
+  stat_regline_equation(aes(x=votes_percentage,y=series_complete_pop_pct/100),
+                        label.y = 0.1,colour="red",fontface = "bold.italic") + 
+  
+  # add r square
+  stat_cor(aes(x=votes_percentage,y=series_complete_pop_pct/100,label = paste(..rr.label..)),
+           label.y = 0.05,colour="red")+ 
+  
+  # add date
+  geom_text(aes(x=0.3, y=0.07,label = "09/03/2021", 
+                fontface = "bold.italic"),colour="red")+ 
+  
+  # add horizonal lines below
+  geom_hline(aes(yintercept=0.85), linetype=2) + # herd immunity line
+  geom_text(aes(x=0, y=0.85, label = "Herd Immunity threshold (?)", 
+                vjust=-1, hjust=0, fontface = "bold.italic"),colour="blue") +
+  geom_hline(aes(yintercept=0.539), linetype=2) + # Target line
+  geom_text(aes(x=0, y=0.539,label = "TARGET: 53.9%", 
+                vjust=-1,hjust=0, fontface = "bold.italic"),colour="blue") +
+  geom_hline(aes(yintercept=actual), linetype=2) + # actual line
+  geom_text(aes(x=0, y=actual, label = paste("ACTUAL: ", round(actual*100,1),"%"),
+                vjust=-1,hjust=0,fontface = "bold.italic"),
+            colour="blue") +
+  
+  # adjuct grid lines
+  scale_x_continuous(label=scales::percent_format(accuracy = 1),
+                     breaks=seq(0,1,0.05),limits = c(0,1))+
+  scale_y_continuous(label=scales::percent_format(accuracy = 1),
+                     breaks=seq(0,1,0.05),limits = c(0,1))+
+  geom_text(aes(x=0.5,y=1, label = "EACH U.S. COUNTY",vjust=0.5,hjust=0.5,
+                family="mono",fontface = "bold"),
+            size=5)+
+  labs(title = "COVID-19 VACCINATION LEVELS OUT OF TOTAL POPULATION BY COUNTY",
+       x = "2020 Trump Vote %",
+       y = "% of Total Population Vaccinated")+
+  # remove the legend
+  theme(legend.position = "none")+
+  NULL
+
+
+```
+
+
+# Team members
+
+- Alex Kubbinga
+- Clara Moreno Sanchez
+- Jean Huang
+- Raghav Mehta
+- Raina Doshi
+- Yuan Gao

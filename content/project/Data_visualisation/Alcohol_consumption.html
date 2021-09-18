@@ -1,0 +1,269 @@
+---
+title: "Alcoho1 Consumption Analysis"
+author: "LBS-MAM22 Group 5"
+date: "2021-09-18"
+tags: ["groupwork", "data_visualisation"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="where-do-people-drink-the-most-beer-wine-and-spirits" class="section level1">
+<h1>Where Do People Drink The Most Beer, Wine And Spirits?</h1>
+<p>Back in 2014, <a href="https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/">fivethiryeight.com</a> published an article on alchohol consumption in different countries. The data <code>drinks</code> is available as part of the <code>fivethirtyeight</code> package.</p>
+<pre class="r"><code>library(fivethirtyeight)
+data(drinks)</code></pre>
+<p>After skimming the data, we can see that there are no missing values in the dataset.
+The variable types are:</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="11%" />
+<col width="14%" />
+<col width="16%" />
+<col width="14%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column name</th>
+<th>country</th>
+<th>beer_servings</th>
+<th>spirit_servings</th>
+<th>wine_servings</th>
+<th>total_litres_of_pure_alcohol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variable type</td>
+<td>character</td>
+<td>integer</td>
+<td>integer</td>
+<td>integer</td>
+<td>double</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>glimpse(drinks)</code></pre>
+<pre><code>## Rows: 193
+## Columns: 5
+## $ country                      &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Albania&quot;, &quot;Algeria&quot;, &quot;And…
+## $ beer_servings                &lt;int&gt; 0, 89, 25, 245, 217, 102, 193, 21, 261, 2…
+## $ spirit_servings              &lt;int&gt; 0, 132, 0, 138, 57, 128, 25, 179, 72, 75,…
+## $ wine_servings                &lt;int&gt; 0, 54, 14, 312, 45, 45, 221, 11, 212, 191…
+## $ total_litres_of_pure_alcohol &lt;dbl&gt; 0.0, 4.9, 0.7, 12.4, 5.9, 4.9, 8.3, 3.8, …</code></pre>
+<pre class="r"><code>skim(drinks)</code></pre>
+<table>
+<caption>(#tab:glimpse_skim_data)Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">drinks</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">193</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">4</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">28</td>
+<td align="right">0</td>
+<td align="right">193</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">beer_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">106.16</td>
+<td align="right">101.14</td>
+<td align="right">0</td>
+<td align="right">20.0</td>
+<td align="right">76.0</td>
+<td align="right">188.0</td>
+<td align="right">376.0</td>
+<td align="left">▇▃▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">spirit_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">80.99</td>
+<td align="right">88.28</td>
+<td align="right">0</td>
+<td align="right">4.0</td>
+<td align="right">56.0</td>
+<td align="right">128.0</td>
+<td align="right">438.0</td>
+<td align="left">▇▃▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">wine_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">49.45</td>
+<td align="right">79.70</td>
+<td align="right">0</td>
+<td align="right">1.0</td>
+<td align="right">8.0</td>
+<td align="right">59.0</td>
+<td align="right">370.0</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">total_litres_of_pure_alcohol</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.72</td>
+<td align="right">3.77</td>
+<td align="right">0</td>
+<td align="right">1.3</td>
+<td align="right">4.2</td>
+<td align="right">7.2</td>
+<td align="right">14.4</td>
+<td align="left">▇▃▅▃▁</td>
+</tr>
+</tbody>
+</table>
+<div id="top-25-alcohol-consuming-countries" class="section level2">
+<h2>Top 25 alcohol consuming countries</h2>
+<p>We will make a plot to show the top 25 alcohol consuming countries for beer, wine and spirit respectively.</p>
+<div id="top-25-beer-consuming-countries" class="section level3">
+<h3>Top 25 beer consuming countries</h3>
+<pre class="r"><code>drinks %&gt;% 
+  slice_max ( order_by = beer_servings, n=25 ) %&gt;% # taking top 25 countries by servings
+  #plotting a graph 
+  ggplot(aes(x = beer_servings, y = fct_reorder(country, beer_servings))) +
+  geom_col(fill=&quot;orange&quot;) +
+  #labelling the graph and the axes
+  labs(
+    title = &quot;Top 25 Beer Consuming Countries in 2010&quot;,
+    subtitle = &quot;Standard Servings Per Person&quot;,
+    x = &quot;Beer Servings (in cans)&quot;,
+    y = &quot;Country&quot;
+  )</code></pre>
+<p><img src="/project/Alcohol_consumption_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" />
+### Top 25 wine consuming countries</p>
+<pre class="r"><code>drinks %&gt;% 
+  slice_max ( order_by = wine_servings, n=25 ) %&gt;% # taking top 25 countries by servings
+  ggplot(aes(x = wine_servings, y = fct_reorder(country, wine_servings))) +
+  geom_col(fill=&quot;dark red&quot;) +
+  labs(
+    title = &quot;Top 25 Wine Consuming Countries in 2010&quot;,
+    subtitle = &quot;Standard Servings Per Person&quot;,
+    x = &quot;Wine Servings (in glasses)&quot;,
+    y = &quot;Country&quot;
+  )</code></pre>
+<p><img src="/project/Alcohol_consumption_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+<div id="top-25-spirit-consuming-countries" class="section level3">
+<h3>Top 25 spirit consuming countries</h3>
+<pre class="r"><code>drinks %&gt;% 
+  slice_max ( order_by = spirit_servings, n=25 ) %&gt;% # taking top 25 countries by servings
+  ggplot(aes(x = spirit_servings, y = fct_reorder(country, spirit_servings))) +
+  geom_col(fill=&quot;grey&quot;) +
+  labs(
+    title = &quot;Top 25 Spirit Consuming Countries in 2010&quot;,
+    subtitle = &quot;Servings (in shots) Per Person&quot;,
+    x = &quot;Spirit Servings&quot;,
+    y = &quot;Country&quot;
+  )</code></pre>
+<p><img src="/project/Alcohol_consumption_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" />
+&gt; Inferences &amp; Key takeaways-</p>
+<ol style="list-style-type: decimal">
+<li><p>European countries are high consumers of wine.</p></li>
+<li><p>Beer is more evenly distributed around the world in the top 25 countries, as compared to wine and spirit.</p></li>
+<li><p>European countries are higher ranked for overall consumption of beer, wine and spirit.</p></li>
+<li><p>We see the countries with higher population are lower on the graphs, since the data is plotted per population. Hence the distribution of ages in the population within each country will also affect the alcohol, wine and spirits consumption.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="team-members" class="section level1">
+<h1>Team members</h1>
+<ul>
+<li>Alex Kubbinga</li>
+<li>Clara Moreno Sanchez</li>
+<li>Jean Huang</li>
+<li>Raghav Mehta</li>
+<li>Raina Doshi</li>
+<li>Yuan Gao</li>
+</ul>
+</div>

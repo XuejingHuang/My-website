@@ -1,0 +1,155 @@
+---
+title: "Returns on Financial Stocks Analysis"
+author: "LBS-MAM22 Group 5"
+date: "2021-09-18"
+tags: ["groupwork", "data_visualisation"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="returns-of-financial-stocks" class="section level1">
+<h1>Returns of financial stocks</h1>
+<p>We will use the <code>tidyquant</code> package to download historical data of stock prices, calculate returns, and examine the distribution of returns.</p>
+<p>We must first identify which stocks we want to download data for, and for this we must know their ticker symbol; Apple is known as AAPL, Microsoft as MSFT, McDonald’s as MCD, etc. The file <code>nyse.csv</code> contains 508 stocks listed on the NYSE, their ticker <code>symbol</code>, <code>name</code>, the IPO (Initial Public Offering) year, and the sector and industry the company is in.</p>
+<pre class="r"><code>nyse &lt;- read_csv(here::here(&quot;data&quot;,&quot;nyse.csv&quot;))
+
+glimpse(nyse)</code></pre>
+<pre><code>## Rows: 508
+## Columns: 6
+## $ symbol        &lt;chr&gt; &quot;MMM&quot;, &quot;ABB&quot;, &quot;ABT&quot;, &quot;ABBV&quot;, &quot;ACN&quot;, &quot;AAP&quot;, &quot;AFL&quot;, &quot;A&quot;, &quot;…
+## $ name          &lt;chr&gt; &quot;3M Company&quot;, &quot;ABB Ltd&quot;, &quot;Abbott Laboratories&quot;, &quot;AbbVie …
+## $ ipo_year      &lt;chr&gt; &quot;n/a&quot;, &quot;n/a&quot;, &quot;n/a&quot;, &quot;2012&quot;, &quot;2001&quot;, &quot;n/a&quot;, &quot;n/a&quot;, &quot;1999…
+## $ sector        &lt;chr&gt; &quot;Health Care&quot;, &quot;Consumer Durables&quot;, &quot;Health Care&quot;, &quot;Heal…
+## $ industry      &lt;chr&gt; &quot;Medical/Dental Instruments&quot;, &quot;Electrical Products&quot;, &quot;Ma…
+## $ summary_quote &lt;chr&gt; &quot;https://www.nasdaq.com/symbol/mmm&quot;, &quot;https://www.nasdaq…</code></pre>
+<p>Based on this dataset, we have created a table and a bar plot that shows the number of companies per sector, in descending order</p>
+<pre class="r"><code># a easier way
+# nyse %&gt;% 
+#   select(sector) %&gt;% 
+#   table() %&gt;%
+#   sort(decreasing = T) %&gt;%
+#   barplot()
+
+nyse %&gt;%
+  group_by(sector) %&gt;% 
+  mutate(company_num = count(sector)) %&gt;%
+  ggplot(aes(x=company_num, y=fct_reorder(sector, company_num))) +
+  geom_bar(stat=&quot;identity&quot;) +
+  labs(title = &quot;Number of Companies in each Sector&quot;,
+       x = &quot;&quot;,
+       y = &quot;Sector&quot;)</code></pre>
+<p><img src="/project/Returns_on_stock_files/figure-html/companies_per_sector-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Next, we have chosen some stocks and their ticker symbols and downloaded data.
+The stocks we chose are: “EBR”,“BBL”,“AEE”,“BCE”,“BRO”,“CAT”,“BUD”,“SPY”</p>
+<pre class="r"><code># Notice the cache=TRUE argument inthe chunk options. Because getting data is time consuming, 
+# cache=TRUE means that once it downloads data, the chunk will not run again next time you knit your Rmd
+
+myStocks &lt;- c(&quot;EBR&quot;,&quot;BBL&quot;,&quot;AEE&quot;,&quot;BCE&quot;,&quot;BRO&quot;,&quot;CAT&quot;,&quot;BUD&quot;,&quot;SPY&quot; ) %&gt;%
+  tq_get(get  = &quot;stock.prices&quot;,
+         from = &quot;2011-01-01&quot;,
+         to   = &quot;2021-08-31&quot;) %&gt;%
+  group_by(symbol) 
+
+glimpse(myStocks) # examine the structure of the resulting data frame</code></pre>
+<pre><code>## Rows: 21,464
+## Columns: 8
+## Groups: symbol [8]
+## $ symbol   &lt;chr&gt; &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;…
+## $ date     &lt;date&gt; 2011-01-03, 2011-01-04, 2011-01-05, 2011-01-06, 2011-01-07, …
+## $ open     &lt;dbl&gt; 13.9, 14.1, 14.3, 14.3, 14.0, 13.8, 13.8, 13.8, 13.9, 14.0, 1…
+## $ high     &lt;dbl&gt; 14.0, 14.3, 14.5, 14.3, 14.0, 13.9, 13.8, 13.9, 14.1, 14.3, 1…
+## $ low      &lt;dbl&gt; 13.9, 14.0, 14.3, 14.0, 13.8, 13.7, 13.6, 13.7, 13.8, 13.9, 1…
+## $ close    &lt;dbl&gt; 14.0, 14.2, 14.4, 14.1, 14.0, 13.7, 13.7, 13.8, 14.0, 14.2, 1…
+## $ volume   &lt;dbl&gt; 878300, 802900, 950300, 855800, 586000, 1020300, 1545800, 112…
+## $ adjusted &lt;dbl&gt; 9.85, 10.00, 10.13, 9.92, 9.82, 9.63, 9.65, 9.71, 9.84, 10.03…</code></pre>
+<p>We can see that the dataset is 8x21,464 tibble with each row being the ohlc (open,high,low,close) and volume for a stock on a given date.</p>
+<p>Financial performance analysis depend on returns; If I buy a stock today for 100 and I sell it tomorrow for 101.75, my one-day return, assuming no transaction costs, is 1.75%. So given the adjusted closing prices, our first step is to calculate daily and monthly returns.</p>
+<pre class="r"><code>#calculate daily returns
+myStocks_returns_daily &lt;- myStocks %&gt;%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;daily&quot;, 
+               type       = &quot;log&quot;,
+               col_rename = &quot;daily_returns&quot;,
+               cols = c(nested.col))  
+
+#calculate monthly  returns
+myStocks_returns_monthly &lt;- myStocks %&gt;%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;monthly&quot;, 
+               type       = &quot;arithmetic&quot;,
+               col_rename = &quot;monthly_returns&quot;,
+               cols = c(nested.col)) 
+
+#calculate yearly returns
+myStocks_returns_annual &lt;- myStocks %&gt;%
+  group_by(symbol) %&gt;%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = &quot;yearly&quot;, 
+               type       = &quot;arithmetic&quot;,
+               col_rename = &quot;yearly_returns&quot;,
+               cols = c(nested.col))</code></pre>
+<p>We have created a table summarising monthly returns for each of the stocks and <code>SPY</code>; min, max, median, mean, SD.</p>
+<pre class="r"><code>glimpse(myStocks_returns_monthly)</code></pre>
+<pre><code>## Rows: 1,024
+## Columns: 3
+## Groups: symbol [8]
+## $ symbol          &lt;chr&gt; &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;, &quot;EBR&quot;…
+## $ date            &lt;date&gt; 2011-01-31, 2011-02-28, 2011-03-31, 2011-04-29, 2011-…
+## $ monthly_returns &lt;dbl&gt; -0.0264, 0.0487, 0.0861, -0.0445, -0.0263, -0.0264, -0…</code></pre>
+<pre class="r"><code>monthlystocks_summarised &lt;- myStocks_returns_monthly %&gt;% 
+  group_by(symbol) %&gt;%
+  summarise(min_return = min(monthly_returns),
+            max_return = max(monthly_returns),
+            median_return = median(monthly_returns),
+            mean_return = mean(monthly_returns),
+            sd_return = sd(monthly_returns))</code></pre>
+<p>Plotted a density plot, using <code>geom_density()</code>, for each of the stocks</p>
+<pre class="r"><code>ggplot(myStocks_returns_monthly, aes(x = monthly_returns)) +
+  geom_density() + 
+  facet_wrap(~symbol) +
+  labs(
+    title = &quot;Density Plots for Monthly Returns of Stocks&quot;,
+    x = &quot;Monthly Return&quot;,
+    y = &quot;Density&quot;
+  ) +
+  NULL</code></pre>
+<p><img src="/project/Returns_on_stock_files/figure-html/density_monthly_returns-1.png" width="648" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>Inferences from the plots</p>
+</blockquote>
+<p>The monthly returns for the flatter density plots are more dispersed whereas those with tall peaks are more concentrated. The riskiest stock is EBR and the least risky is SPY (as an ETF) due to the shape of their peaks.</p>
+<p>Finally, make a plot that shows the expected monthly return (mean) of a stock on the Y axis and the risk (standard deviation) in the X-axis. Please use <code>ggrepel::geom_text_repel()</code> to label each stock</p>
+<pre class="r"><code>monthlystocks_summarised%&gt;%
+  ggplot(aes(y = mean_return, x=sd_return)) +
+  geom_point() + 
+  ggrepel::geom_text_repel(aes(label = symbol)) +
+  NULL</code></pre>
+<p><img src="/project/Returns_on_stock_files/figure-html/risk_return_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>Inferences from the plots</p>
+</blockquote>
+<p>EBR is the most risky as it has the highest standard deviation of returns. EBR has the highest sd but also a high expected return. AEE, CAT and SPY also have high expected returns with less standard deviation. BBL and BUD have lower expected returns and higher standard deviations meaning they are riskier and do not have high expected returns. SPY produces a good return with lower risk.</p>
+</div>
+<div id="team-members" class="section level1">
+<h1>Team members</h1>
+<ul>
+<li>Alex Kubbinga</li>
+<li>Clara Moreno Sanchez</li>
+<li>Jean Huang</li>
+<li>Raghav Mehta</li>
+<li>Raina Doshi</li>
+<li>Yuan Gao</li>
+</ul>
+</div>
