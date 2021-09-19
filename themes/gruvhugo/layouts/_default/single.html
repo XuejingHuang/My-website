@@ -23,6 +23,14 @@
     	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>
         {{end}}
     </div>
+    <div class="others">
+        {{if and (ne .Section "project") (ne .Section "groupwork") (ne .Section "post")}}
+        <div class="post-header">
+        <h2 class="post-title"><a class="go-back" href="{{ .Site.BaseURL }}">
+    	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>
+        {{end}}
+        </div>
+    </div>
     {{ if .Params.Author }}
     <p>By <a href="{{ .Params.AuthorUrl }}">{{ .Params.Author }}</a></p>
     {{ end }}
@@ -43,7 +51,7 @@
 	      {{ end}}
 	  </nav>
     {{ end }}
-    <div class="content">
+    <div class="Content">
         {{.Content }}
     </div>
 </section>
