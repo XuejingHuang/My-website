@@ -1,8 +1,8 @@
 ---
 title: "Returns on Financial Stocks Analysis"
-author: "LBS-MAM22 Group 5"
-date: "2021-09-18"
-tags: ["groupwork", "data_visualisation"]
+author: "MAM Group 5"
+date: "2021-09-19"
+tags: ["data_visualisation"]
 output:
   html_document:
     theme: flatly
@@ -16,6 +16,8 @@ output:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>A group project calculating returns and examining the distribution of returns based on a stock price dataset</p>
+<!--more-->
 <div id="returns-of-financial-stocks" class="section level1">
 <h1>Returns of financial stocks</h1>
 <p>We will use the <code>tidyquant</code> package to download historical data of stock prices, calculate returns, and examine the distribution of returns.</p>
@@ -47,7 +49,7 @@ nyse %&gt;%
   labs(title = &quot;Number of Companies in each Sector&quot;,
        x = &quot;&quot;,
        y = &quot;Sector&quot;)</code></pre>
-<p><img src="/project/Returns_on_stock_files/figure-html/companies_per_sector-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/Returns_on_stock_files/figure-html/companies_per_sector-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>Next, we have chosen some stocks and their ticker symbols and downloaded data.
 The stocks we chose are: “EBR”,“BBL”,“AEE”,“BCE”,“BRO”,“CAT”,“BUD”,“SPY”</p>
 <pre class="r"><code># Notice the cache=TRUE argument inthe chunk options. Because getting data is time consuming, 
@@ -125,7 +127,7 @@ myStocks_returns_annual &lt;- myStocks %&gt;%
     y = &quot;Density&quot;
   ) +
   NULL</code></pre>
-<p><img src="/project/Returns_on_stock_files/figure-html/density_monthly_returns-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/Returns_on_stock_files/figure-html/density_monthly_returns-1.png" width="648" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>Inferences from the plots</p>
 </blockquote>
@@ -136,7 +138,7 @@ myStocks_returns_annual &lt;- myStocks %&gt;%
   geom_point() + 
   ggrepel::geom_text_repel(aes(label = symbol)) +
   NULL</code></pre>
-<p><img src="/project/Returns_on_stock_files/figure-html/risk_return_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/Returns_on_stock_files/figure-html/risk_return_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>Inferences from the plots</p>
 </blockquote>

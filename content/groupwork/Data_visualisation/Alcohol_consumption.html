@@ -1,7 +1,7 @@
 ---
 title: "Alcoho1 Consumption Analysis"
-author: "LBS-MAM22 Group 5"
-date: "2021-09-18"
+author: "MAM Group 5"
+date: "September 13, 2021"
 tags: [ "data_visualisation"]
 output:
   html_document:
@@ -221,8 +221,10 @@ The variable types are:</p>
     x = &quot;Beer Servings (in cans)&quot;,
     y = &quot;Country&quot;
   )</code></pre>
-<p><img src="/gg/Data_visualisation/Alcohol_consumption_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" />
-### Top 25 wine consuming countries</p>
+<p><img src="/groupwork/Data_visualisation/Alcohol_consumption_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+</div>
+<div id="top-25-wine-consuming-countries" class="section level3">
+<h3>Top 25 wine consuming countries</h3>
 <pre class="r"><code>drinks %&gt;% 
   slice_max ( order_by = wine_servings, n=25 ) %&gt;% # taking top 25 countries by servings
   ggplot(aes(x = wine_servings, y = fct_reorder(country, wine_servings))) +
@@ -233,7 +235,7 @@ The variable types are:</p>
     x = &quot;Wine Servings (in glasses)&quot;,
     y = &quot;Country&quot;
   )</code></pre>
-<p><img src="/gg/Data_visualisation/Alcohol_consumption_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/Alcohol_consumption_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="top-25-spirit-consuming-countries" class="section level3">
 <h3>Top 25 spirit consuming countries</h3>
@@ -247,8 +249,10 @@ The variable types are:</p>
     x = &quot;Spirit Servings&quot;,
     y = &quot;Country&quot;
   )</code></pre>
-<p><img src="/gg/Data_visualisation/Alcohol_consumption_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" />
-&gt; Inferences &amp; Key takeaways-</p>
+<p><img src="/groupwork/Data_visualisation/Alcohol_consumption_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>Inferences &amp; Key takeaways-</p>
+</blockquote>
 <ol style="list-style-type: decimal">
 <li><p>European countries are high consumers of wine.</p></li>
 <li><p>Beer is more evenly distributed around the world in the top 25 countries, as compared to wine and spirit.</p></li>

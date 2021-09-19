@@ -2,7 +2,7 @@
 title: "Biden Approval Ratings"
 author: "MAM Group 5"
 date: "`r Sys.Date()`"
-tags: [data_visualisation","statistics"]
+tags: ["data_visualisation","statistics"]
 output:
   html_document:
     theme: sky
@@ -13,7 +13,7 @@ output:
     code_folding: show
 ---
 
-A group project on visualising the approval margin for Biden and its evolution over time
+A group project on visualising the approval margin for Biden and its evolution over time.
 
 <!--more-->
 

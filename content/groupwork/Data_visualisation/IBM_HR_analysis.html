@@ -1,8 +1,8 @@
 ---
 title: "IBM HR Analysis"
-author: "LBS-MAM22 Group 5"
-date: "2021-09-18"
-tags: ["groupwork", "data_visualisation"]
+author: "MAM Group 5"
+date: "2021-09-19"
+tags: ["data_visualisation"]
 output:
   html_document:
     theme: flatly
@@ -16,6 +16,8 @@ output:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>A group project analysing multiple variables based on a fictional data set created by IBM data scientists</p>
+<!--more-->
 <div id="ibm-hr-analytics" class="section level1">
 <h1>IBM HR Analytics</h1>
 <p>We analyse a data set on Human Resource Analytics. The <a href="https://www.kaggle.com/pavansubhasht/ibm-hr-analytics-attrition-dataset">IBM HR Analytics Employee Attrition &amp; Performance data set</a> is a fictional data set created by IBM data scientists. Among other things, the data set includes employees’ income, their distance from work, their position in the company, their level of education, etc. A full description can be found on the website.</p>
@@ -140,7 +142,7 @@ hr_cleaned %&gt;%
 prop.table(table(hr_cleaned[,c(&quot;years_at_company&quot;,&quot;attrition&quot;)]),1)[,2]%&gt;%
   barplot(main=&quot;Attrition Rate vs Years At Company&quot; , xlab=&quot;Years at Company&quot; , ylab=&quot;Attrition Rate&quot;)
 abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
-<p><img src="/project/IBM_HR_analysis_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/IBM_HR_analysis_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li>As we can see from the above table only around 20% of the employees in the dataset left the company during their working years. This shows that employees do not leave that often.</li>
 </ul>
@@ -480,14 +482,14 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
        x = &quot;Education&quot;,
        y = &quot;Monthly Income&quot;)+
   NULL</code></pre>
-<p><img src="/project/IBM_HR_analysis_files/figure-html/unnamed-chunk-7-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/IBM_HR_analysis_files/figure-html/unnamed-chunk-7-1.png" width="648" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(hr_cleaned, aes(x = monthly_income, y = gender)) +
   geom_boxplot()+
   labs(title = &quot;Boxplot of Monthly Income against Gender&quot;,
        x = &quot;Monthly Income&quot;,
        y = &quot;Gender&quot;)+
   NULL</code></pre>
-<p><img src="/project/IBM_HR_analysis_files/figure-html/unnamed-chunk-7-2.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/IBM_HR_analysis_files/figure-html/unnamed-chunk-7-2.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li>As we can see from the boxplot of males and females and their monthly income, females have a higher median monthly income which could mean that the females in the dataset could be more educated. The doctors have the highest monthly median income and those with below college education have the least. Doctors also have the highest variability in the IQR. College has the most outliers due to its low standard deviation.</li>
 </ul>
@@ -500,7 +502,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
        x = &quot;Job Role&quot;,
        y = &quot;Monthly Income&quot;)+
   NULL</code></pre>
-<p><img src="/project/IBM_HR_analysis_files/figure-html/unnamed-chunk-8-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/IBM_HR_analysis_files/figure-html/unnamed-chunk-8-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="relationship-between-income-by-education-level" class="section level2">
 <h2>Relationship between income by education level</h2>
@@ -517,7 +519,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
        x = &quot;Education&quot;,
        y = &quot;Average Monthly Income&quot;)+
   NULL</code></pre>
-<p><img src="/project/IBM_HR_analysis_files/figure-html/unnamed-chunk-9-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/IBM_HR_analysis_files/figure-html/unnamed-chunk-9-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li>As we can see the medians and means differ greatly, this is due to the outliers in the dataset with individuals with abnormally high monthly income levels.</li>
 </ul>
@@ -532,7 +534,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
             &quot;College&quot;, &quot;Below College&quot;)) +
   theme_wsj() +
   NULL</code></pre>
-<p><img src="/project/IBM_HR_analysis_files/figure-html/unnamed-chunk-10-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/IBM_HR_analysis_files/figure-html/unnamed-chunk-10-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="relationship-between-income-vs-age-faceted-by-job_role" class="section level1">
@@ -544,7 +546,7 @@ abline(h=0.192,col=&quot;red&quot;) # avergae attrition rate</code></pre>
   facet_wrap(~job_role) +
   theme_wsj() +
   NULL</code></pre>
-<p><img src="/project/IBM_HR_analysis_files/figure-html/unnamed-chunk-11-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/IBM_HR_analysis_files/figure-html/unnamed-chunk-11-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="team-members" class="section level1">
 <h1>Team members</h1>

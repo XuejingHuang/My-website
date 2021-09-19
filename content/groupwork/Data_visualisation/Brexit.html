@@ -1,7 +1,7 @@
 ---
-title: "Brexit"
-author: "LBS-MAM22 Group 5"
-date: "2021-09-18"
+title: "Brexit Voting Analysis"
+author: "MAM Group 5"
+date: "2021-09-19"
 tags: ["data_visualisation"]
 output:
   html_document:
@@ -16,12 +16,15 @@ output:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<p>A group data-visualisation project replicating a graph showing the relationship between the percentage of voting for brexit and the percentage of UK parties in a county in 2015</p>
+<p>A group project replicating a graph showing the relationship between the percentage of voting for brexit and the percentage of UK parties in a county in 2015</p>
 <!--more-->
-<div id="challenge-1-brexit-plot" class="section level1">
-<h1>Challenge 1: Brexit plot</h1>
+<div id="brexit-plot" class="section level1">
+<h1>Brexit plot</h1>
 <p>We want to replicate this graph regarding the relationship between brexit vote and parties:</p>
-<p><img src="/Users/huangxuejing/Desktop/AM-01/my-website/images/brexit.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="figure">
+<img src="/images/brexit.png" alt="" />
+<p class="caption">Brexit</p>
+</div>
 <p>Below is our codes for replicating the graph:</p>
 <pre class="r"><code>brexit_results &lt;- read_csv(here::here(&quot;data&quot;,&quot;brexit_results.csv&quot;))
 
@@ -52,7 +55,7 @@ brexit_results %&gt;%
        y=&quot;Leave % in the 2015 Brexit referendum&quot;)+
   theme_bw()+
   NULL</code></pre>
-<p><img src="/gg/Data_visualisation/Brexit_files/figure-html/load_brexit_data-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Data_visualisation/Brexit_files/figure-html/load_brexit_data-1.png" width="648" style="display: block; margin: auto;" /></p>
 </div>
 <div id="team-members" class="section level1">
 <h1>Team members</h1>
