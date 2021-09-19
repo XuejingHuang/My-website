@@ -1,9 +1,27 @@
 {{define "main"}}
 <section class="intro">
-    {{if or (eq .Section "post") (eq .Section "groupwork") (eq .Section "project")}}
-    <div class="post-header">
-    <h2 class="post-title"><a class="go-back" href="{{ "post/" | absLangURL}}">
-	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>
+    <div class="post-sec">
+        {{if eq .Section "post"}}
+        <div class="post-header">
+        <h2 class="post-title"><a class="go-back" href="{{ "post/" | absLangURL}}">
+    	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>
+        {{end}}
+        </div>
+    </div>
+    <div class="groupwork-sec">
+        {{if eq .Section "groupwork"}}
+        <div class="post-header">
+        <h2 class="post-title"><a class="go-back" href="{{ "groupwork/" | absLangURL}}">
+    	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>
+        {{end}}
+        </div>    
+    </div>
+    <div class="project-sec">
+        {{if eq .Section "project"}}
+        <div class="post-header">
+        <h2 class="post-title"><a class="go-back" href="{{ "project/" | absLangURL}}">
+    	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>
+        {{end}}
     </div>
     {{ if .Params.Author }}
     <p>By <a href="{{ .Params.AuthorUrl }}">{{ .Params.Author }}</a></p>
@@ -28,10 +46,5 @@
     <div class="content">
         {{.Content }}
     </div>
-    {{else}}
-    <div>
-        {{.Content }}
-    </div>
-    {{end}}
 </section>
 {{end}}

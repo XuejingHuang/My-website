@@ -1,6 +1,6 @@
 +++
-aliases = ["projects", "articles", "blog", "showcase", "docs", ]
-title = "Projects"
+aliases = ["groupwork", "articles", "blog", "showcase", "docs", ]
+title = "Groupwork"
 author = "Xuejing Huang"
 tags = ["index"]
 +++
