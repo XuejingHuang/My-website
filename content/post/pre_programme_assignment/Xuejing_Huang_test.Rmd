@@ -1,0 +1,45 @@
+---
+title: "Short Bio in RMD"
+author: "Xuejing Huang"
+date: "`r Sys.Date()`"
+tags: ["bio"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+A short bio about myself and my cat using R markdown
+
+<!--more--> 
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(gapminder)  # gapminder dataset
+library(here)
+library(janitor)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# My short biography
+I am Xuejing Huang, 22 years old, graduated from Fudan Univ. with a BSc degree in Physics.  
+In my spare time, I enjoy doing:  
+
+- playing with my cat _Snowball_
+- watching classic movies
+- cooking
+- boxing
+
+
+Snowball is a [ragdoll](https://en.wikipedia.org/wiki/Ragdoll). She is now one and half years old and she has a pair of beautiful blue eyes!
+
+![distinctive blue eyes](/images/IMG_4351.png)
+
