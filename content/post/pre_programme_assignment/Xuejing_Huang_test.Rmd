@@ -41,5 +41,6 @@ In my spare time, I enjoy doing:
 
 Snowball is a [ragdoll](https://en.wikipedia.org/wiki/Ragdoll). She is now one and half years old and she has a pair of beautiful blue eyes!
 
-![distinctive blue eyes](/images/IMG_4351.png){width=50%}
+<img align="center" img width = 80% src="/images/IMG_4351.png">
+
 
