@@ -1,6 +1,6 @@
 ---
 title: "IMDB Ratings vs. Directors"
-author: "Jean"
+author: "Xuejing Huang"
 date: "`r Sys.Date()`"
 tags: ["data_visualisation" , "hypo-testing"]
 output:
