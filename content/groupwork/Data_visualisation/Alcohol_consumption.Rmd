@@ -1,7 +1,7 @@
 ---
 title: "Alcohol Consumption Analysis"
 author: "MAM Group 5"
-date: "September 13, 2021"
+date: "`r Sys.Date()`"
 tags: [ "data_visualisation"]
 output:
   html_document:
