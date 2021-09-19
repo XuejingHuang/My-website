@@ -1,8 +1,8 @@
 ---
 title: "Gapminder Data Analysis"
-author: "LBS-MAM22 Group 5"
-date: "2021-09-18"
-tags: ["groupwork","data_visualisation","statistics"]
+author: "MAM Group 5"
+date: "2021-09-19"
+tags: ["data_visualisation","statistics"]
 output:
   html_document:
     theme: flatly
@@ -16,6 +16,8 @@ output:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>A group project analysing gapminder dataset, exploring the relationship between various variables across the five major continents</p>
+<!--more-->
 <div id="gapminder-revisited" class="section level1">
 <h1>Gapminder revisited</h1>
 <p>Now we look at multiple data frames listed below-</p>
@@ -349,7 +351,7 @@ ggplot(hiv_life_expectancy_worldbank_data, aes(x = HIV_Value , y = Life_Expectan
   )+
   facet_wrap(~interval)+
   NULL</code></pre>
-<p><img src="/project/Statistic_CI/Gapminder_files/figure-html/scatterplot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Statistic_CI/Gapminder_files/figure-html/scatterplot-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>We have faceted the graphs by intervals. We see that as the HIV Value increases the life expectancy decreases.</p>
 <p>Now we analyse the relationship between fertility rate and GDP per capita by generating a scatterplot with a smoothing line.</p>
 <pre class="r"><code>library(countrycode)
@@ -377,7 +379,7 @@ ggplot(hiv_life_expectancy_worldbank_data_continent, aes(x = NY.GDP.PCAP.KD , y 
   facet_wrap(~continent)+
 
   NULL</code></pre>
-<p><img src="/project/Statistic_CI/Gapminder_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Statistic_CI/Gapminder_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>As we can see from plotting the gdppercapita against the fertility rate, when GDP per capita increases the fertility rate decreases substantially and reaches an upper bound at a fertility rate of 3</p></li>
 <li><p>In Asia, Africa, Americas and Ocenia we see the trend that the higher the GDP the lower is the Fertility rate</p></li>
@@ -401,7 +403,7 @@ hiv_missing[1:15,] %&gt;%
   geom_col(fill=&quot;orange&quot;)+
   labs(x=&quot;No. of missing values&quot; , y=&quot;Country&quot; , title= &quot;Missing values of HIV data per country&quot;)+
     NULL</code></pre>
-<p><img src="/project/Statistic_CI/Gapminder_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Statistic_CI/Gapminder_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Now we see how the mortality rate for under 5 has changed by region.</li>
 </ol>
@@ -485,7 +487,7 @@ mortality_best5</code></pre>
   )+
   facet_wrap(~continent)+
   NULL</code></pre>
-<p><img src="/project/Statistic_CI/Gapminder_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Statistic_CI/Gapminder_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>Once again we see that Europe and the rest of the continents have different trends.
 In Asia, Afirca, Americas and Oceania - the higher the fertility, the lesser is the school enrollment.</p></li>

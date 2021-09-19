@@ -1,12 +1,12 @@
 ---
 title: "Biden Approval Ratings"
-author: "LBS-MAM22 Group 5"
-date: "2021-09-18"
-tags: ["groupwork","data_visualisation","statistics"]
+author: "MAM Group 5"
+date: "2021-09-19"
+tags: ["data_visualisation","statistics"]
 output:
   html_document:
-    theme: flatly
-    highlight: zenburn
+    theme: sky
+    highlight: espresso
     number_sections: yes
     toc: yes
     toc_float: yes
@@ -16,6 +16,8 @@ output:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>A group project on visualising the approval margin for Biden and its evolution over time.</p>
+<!--more-->
 <div id="bidens-approval-margins" class="section level1">
 <h1>Biden’s Approval Margins</h1>
 <p>We will now start our analysis of Biden’s approval ratings. Fivethirtyeight.com has detailed data on <a href="https://projects.fivethirtyeight.com/biden-approval-ratings">all polls that track the president’s approval</a></p>
@@ -57,7 +59,7 @@ approval_polllist &lt;- approval_polllist %&gt;%
 <div id="creating-a-plot" class="section level2">
 <h2>Creating a Plot</h2>
 <p>Now we will calculate the average net approval rate (approve- disapprove) for each week since Biden got into office. We will plot Biden’s net approval, along with its 95% confidence interval. For the date, we will use <code>enddate</code>, i.e., the date the poll ended.</p>
-<p><img src="/project/Statistic_CI/Biden_approval_files/figure-html/trump_margins-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Statistic_CI/Biden_approval_files/figure-html/trump_margins-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p><img src="/Users/huangxuejing/Desktop/AM-01/my-website/images/biden_approval_margin.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="comparing-confidence-intervals" class="section level2">

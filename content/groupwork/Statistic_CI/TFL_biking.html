@@ -1,8 +1,8 @@
 ---
-title: "TFL Bike Sharing"
-author: "LBS-MAM22 Group 5"
-date: "2021-09-18"
-tags: ["groupwork","data_visualisation","statistics"]
+title: "Evolution of Bike Rental"
+author: "MAM Group 5"
+date: "2021-09-19"
+tags: ["data_visualisation","statistics"]
 output:
   html_document:
     theme: flatly
@@ -16,6 +16,8 @@ output:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>A group project analysing the evolution of bike hiring in a period of time, reflecting the monthly and weekly fluctuation of the bike rental activity</p>
+<!--more-->
 <div id="excess-rentals-in-tfl-bike-sharing" class="section level1">
 <h1>Excess rentals in TfL bike sharing</h1>
 <p>Recall the TfL data on how many bikes were hired every single day. We can get the latest data by running the following</p>
@@ -23,12 +25,12 @@ output:
 
 # Download TFL data to temporary file
 httr::GET(url, write_disk(bike.temp &lt;- tempfile(fileext = &quot;.xlsx&quot;)))</code></pre>
-<pre><code>## Response [https://airdrive-secure.s3-eu-west-1.amazonaws.com/london/dataset/number-bicycle-hires/2021-08-23T14%3A32%3A29/tfl-daily-cycle-hires.xlsx?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAJJDIMAIVZJDICKHA%2F20210918%2Feu-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210918T153547Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=3b0440c58f9960f3e4c0cbecc85a426c0803f9381bb2c89d63bc7330d8edbb9a&amp;X-Amz-SignedHeaders=host]
-##   Date: 2021-09-18 15:35
+<pre><code>## Response [https://airdrive-secure.s3-eu-west-1.amazonaws.com/london/dataset/number-bicycle-hires/2021-08-23T14%3A32%3A29/tfl-daily-cycle-hires.xlsx?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAJJDIMAIVZJDICKHA%2F20210919%2Feu-west-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210919T003313Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=9d9bb29260c7bfe0b1901612c0501abef6834be1be1123eaacac87cf3daaf08f&amp;X-Amz-SignedHeaders=host]
+##   Date: 2021-09-19 00:33
 ##   Status: 200
 ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 ##   Size: 173 kB
-## &lt;ON DISK&gt;  /var/folders/3z/z0hfc5056ns4j_nqcbwy64hw0000gn/T//RtmpSlX3dd/file966c37938ea2.xlsx</code></pre>
+## &lt;ON DISK&gt;  /var/folders/3z/z0hfc5056ns4j_nqcbwy64hw0000gn/T//RtmpiELq9U/fileb9152b53cacc.xlsx</code></pre>
 <pre class="r"><code># Use read_excel to read it as dataframe
 bike0 &lt;- read_excel(bike.temp,
                    sheet = &quot;Data&quot;,
@@ -85,7 +87,7 @@ plot_bike %&gt;%
                     subtitle = &quot;change from monthly average shown in blue and calculated between 2016-2019&quot;, caption= &quot;Source: TfL, London Data Store&quot;,
        x=&quot;&quot;, y=&quot;Bike Rentals&quot;) +
   NULL</code></pre>
-<p><img src="/project/Statistic_CI/TFL_biking_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Statistic_CI/TFL_biking_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>The second graph we will recreate looks at percentage change from the expected level of weekly rentals. The two grey shaded rectangles correspond to Q2 (weeks 14-26) and Q4 (weeks 40-52).</p>
 <p><img src="/Users/huangxuejing/Desktop/AM-01/my-website/images/tfl_weekly.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Here the green shaded region shows the percentage of rentals above the average and the red shows the percentage below.</p>
@@ -129,7 +131,7 @@ plot_bike_week %&gt;% ggplot(aes(x=week, y=percentage_change_expected)) +
   labs(title = &quot;Weekly change in TfL bike rentals&quot;, 
                     subtitle = &quot;% change from weekly averages calculated between 2016-2019&quot;, 
        y=&quot;&quot;)</code></pre>
-<p><img src="/project/Statistic_CI/TFL_biking_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/groupwork/Statistic_CI/TFL_biking_files/figure-html/unnamed-chunk-2-1.png" width="648" style="display: block; margin: auto;" /></p>
 <p>Should you use the mean or the median to calculate your expected rentals? Why?</p>
 <p>In our graphs we calculate the expected number of rentals per week or month between 2016-2019 and then, see how each week/month of 2020-2021 compares to the expected rentals. Think of the calculation <code>excess_rentals = actual_rentals - expected_rentals</code>. The bike rentals seem to be normally distributed and the mean is a good representation of the population mean. The graphs are identical when the mean is used and since we are trying to replicate the graphs we have used the mean.</p>
 </div>
