@@ -93,7 +93,7 @@ head(tidy_GDP_country)</code></pre>
 ## 5       300 Greece  Household expenditure 1974  73529781615.      73.5
 ## 6       300 Greece  Household expenditure 1975  79050695436.      79.1</code></pre>
 <p>We replicate the chart below:</p>
-<p><img src="/Users/huangxuejing/Desktop/AM-01/my-website/images/gdp1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="/images/gdp1.png" /></p>
 <pre class="r"><code>tidy_GDP_country %&gt;% 
   filter(IndicatorName!=&quot;Gross Domestic Product&quot;) %&gt;% 
   ggplot(aes(x=as.numeric(year), y=volume_bn, 

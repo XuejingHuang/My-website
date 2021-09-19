@@ -57,9 +57,9 @@ library(janitor)
 
 # Brexit plot
 
-We want to replicate this graph regarding the relationship between brexit vote and parties:
+We want to replicate this graph regarding the relationship between brexit vote and parties: 
 
-![Brexit](/images/brexit.png)
+![](/images/brexit.png "brexit vote and parties")
 
 Below is our codes for replicating the graph:
 

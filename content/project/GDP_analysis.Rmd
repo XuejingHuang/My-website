@@ -114,9 +114,7 @@ head(tidy_GDP_country)
 
 We replicate the chart below:
 
-```{r gdp1, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "gdp1.png"), error = FALSE)
-```
+![](/images/gdp1.png)
 
 ```{r}
 tidy_GDP_country %>% 

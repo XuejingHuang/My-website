@@ -50,7 +50,7 @@ library(infer)
 
 # Biden's Approval Margins
 
-We will now start our analysis of Biden's approval ratings. Fivethirtyeight.com has detailed data on [all polls that track the president's approval ](https://projects.fivethirtyeight.com/biden-approval-ratings)
+We will now start our analysis of Biden's approval ratings. Fivethirtyeight.com has detailed data on [all polls that track the president's approval ](https://projects.fivethirtyeight.com/biden-approval-ratings) 
 
 ```{r, cache=TRUE}
 # Import approval polls data directly off fivethirtyeight website
@@ -108,12 +108,6 @@ plot <- approval_polls %>%
 #Printing the plot 
 plot 
 
-```
-
-
-
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics(here::here("images", "biden_approval_margin.png"), error = FALSE)
 ```
 
 ## Comparing Confidence Intervals
