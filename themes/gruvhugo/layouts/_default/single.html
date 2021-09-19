@@ -86,6 +86,11 @@
     </div>
     {{else}}
     <div>
+    <div class="home">
+    <h2 class="home-title"><a class="go-back" href="{{ .Site.BaseURL }}">
+	      <i class="far fa-caret-square-left"></i></a> {{.Title}}</h2>
+    </div>
+    <div>
         {{.Content }}
     </div>
     {{end}}
