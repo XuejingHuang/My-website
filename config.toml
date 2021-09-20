@@ -36,7 +36,7 @@ metaDataFormat= "yaml"
   img_title = ""
   icon = "images/logo.png"
   quote = "Hi there! I'm Jean and glad that you found my website! "
-  description= "I use this website to post some of my data analysis projects, the majority using R markdown, as well as my blogs about the things I like (musicals, photography, etc.) You can also know more about me by downloading my resume."
+  description= "I use this website to post some of my data analysis projects, the majority using R markdown, as well as my blogs about the things I like. Please feel free to discover more about me in the About page and download my resume for my professional experience!"
   licenseUrl = ""
 
   [params.reward]                                         # 文章打赏
