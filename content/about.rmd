@@ -22,10 +22,10 @@ Please continue reading to know more about my background!
 - In Fall 2018, I went to ![UCLA] for a fall-semester exchange in the physics department. I also joined the kickball team organised by my flatmates on the hill.
 - After taking a gap year interning in Shanghai, I'm currently a student in [London Business School](https://www.london.edu) for Masters in Analytics and Management ([MAM](https://www.london.edu/masters-degrees/masters-in-analytics-and-management))
 
-<img align="left" width="255" height="240" src="/images/graduation_fdu.jpeg">
-<img align="right" width="340" height="240" src="/images/UCLA_beach.jpeg">
 
-<br>
+<img align="left" width="255" height="240" style="float:none" src="/images/graduation_fdu.jpeg">
+<img align="right" width="340" height="240" style="float:none" ssrc="/images/UCLA_beach.jpeg">
+
 
   * **Courses**
       
@@ -41,11 +41,11 @@ Please continue reading to know more about my background!
       - **Member of Fudan Aerobics Squad**, participating in the Cheerleading Contest of Shanghai in 2017-2018
       - **Voluntary teacher** in Rye Volunteer Community at a primary school in Henan, China in 2017
       - **Voluntary bilingual guide** for Yu Garden in Shanghai in 2017
-      
-<img align="left" width="195" height="260" src="/images/cheerleading.jpeg">
-<img align="right" width="400" height="260" src="/images/voluntary_teach.jpeg">
 
-<br>
+
+<img align="left" width="195" height="260" style="float:none" src="/images/cheerleading.jpeg">
+<img align="right" width="400" height="260" style="float:none" src="/images/voluntary_teach.jpeg">
+
 
 ### Career
 
