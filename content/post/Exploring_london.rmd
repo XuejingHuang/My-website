@@ -1,0 +1,36 @@
+---
+title: "Exploring London"
+author: "Xuejing Huang"
+date: "`r Sys.Date()`"
+tags: ["photography"]
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+Random photos in the streets of London
+
+<!--more--> 
+
+## Live in London
+
+I live in a flat in Lisson Grove with three undergraduate friends (2 [MFAs](https://www.london.edu/masters-degrees/masters-in-financial-analysis) and 1 [GMiM](https://www.london.edu/masters-degrees/global-masters-in-management)). I love the view outside my window, especially in sunny afternoons.
+
+<img align="center" img width = 100% style="float:none" src="/images/photos/bedroom.jpeg">
+
+## Walk in London
+On weekends, I usually go out with my roomates and explore the streets in London. 
+
+<img align="left" img width = 45% style="float:none" src="/images/photos/OxfordSt1.jpeg">  <img align="right" img width = 46.5% style="float:none" src="/images/photos/OxfordSt2.jpeg">
+
+<img align="left" img width = 45% style="float:none" src="/images/photos/Fair.jpeg">  <img align="right" width = "262" height = "170" style="float:none" src="/images/photos/Bike_home.jpeg">
+
+
+
+
+
