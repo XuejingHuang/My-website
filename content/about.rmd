@@ -24,7 +24,7 @@ Please continue reading to know more about my background!
 
 
 <img align="left" width="255" height="240" style="float:none" src="/images/graduation_fdu.jpeg">
-<img align="right" width="340" height="240" style="float:none" ssrc="/images/UCLA_beach.jpeg">
+<img align="right" width="340" height="240" style="float:none" src="/images/UCLA_beach.jpeg">
 
 
   * **Courses**
@@ -67,7 +67,7 @@ Please continue reading to know more about my background!
 
 <img align="center" img width = 100% src="/images/calligraphy.jpeg">
 
-_Welcome to find out more in my [posts](https://xuejing-huang.netlify.app/post/)!_
+_Welcome to find out more in my [Posts](https://xuejing-huang.netlify.app/post/), and my data analysis work in [Projects](https://xuejing-huang.netlify.app/project/) and [Groupwork](https://xuejing-huang.netlify.app/groupwork/)!_
 
 
 
