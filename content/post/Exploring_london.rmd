@@ -28,7 +28,7 @@ On weekends, I usually go out with my roomates and explore the streets in London
 
 <img align="left" img width = 45% style="float:none" src="/images/photos/OxfordSt1.jpeg">  <img align="right" img width = 46.5% style="float:none" src="/images/photos/OxfordSt2.jpeg">
 
-<img align="left" img width = 45% style="float:none" src="/images/photos/Fair.jpeg">  <img align="right" width = "262" height = "170" style="float:none" src="/images/photos/Bike_home.jpeg">
+<img align="left" img width = 45% style="float:none" src="/images/photos/Fair.jpeg">  <img align="right" img width = 40% style="float:none" src="/images/photos/Bike_home.jpeg">
 
 
 
