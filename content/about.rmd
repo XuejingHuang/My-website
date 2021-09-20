@@ -1,0 +1,73 @@
+---
+title: "About"
+description:  "Several facts about me"
+date: "2021-09-15"
+aliases: ["about-me", ]
+author: "Xuejing Huang"
+---
+
+Hi there! I'm Jean from Shanghai, China. Here are several facts that help you know me:
+
+- I was born and raised in Anhui, China. My hometown is most known for _Mount Huang_, which is also my surname
+- I have a ragdoll cat back home. She is now 14 months old and her name is my childhood nickname _Snowball_
+- My current plan is to kick off my career as a consultant at [OC&C Strategy Consultants](https://www.occstrategy.com/en/)
+
+
+Please continue reading to know more about my background!
+
+### Education 
+
+- I studied in [Hefei No.1 High School](https://www.facebook.com/hfn1hs/) and was a member in the Model United Nation Association there
+- I studied in [Fudan University](https://www.fudan.edu.cn/en/) and obtained my BSc in physics in Jun 2020
+- In Fall 2018, I went to ![UCLA] for a fall-semester exchange in the physics department. I also joined the kickball team organised by my flatmates on the hill.
+- After taking a gap year interning in Shanghai, I'm currently a student in [London Business School](https://www.london.edu) for Masters in Analytics and Management ([MAM](https://www.london.edu/masters-degrees/masters-in-analytics-and-management))
+
+<img align="left" width="255" height="240" src="/images/graduation_fdu.jpeg">
+<img align="right" width="340" height="240" src="/images/UCLA_beach.jpeg">
+
+<br>
+
+  * **Courses**
+      
+      - **Math**: _Advanced Mathematics_, _Mathematical Methods for Physics_, _Linear Algebra and Mathematical Statistics_
+      - **Physics**: _Classical Mechanics_, _Thermodynamics and Statistical Physics_, _Quantum Mechanics_,  _Electrodynamics, Contemporary Physics Experiment_
+      - **Tech**: _Python, Object Oriented Programming_, _Access and Databases_
+      - **Management**: _Marketing_, _Accounting_
+      - **Others**: _Chinese Classic Poems_, _Game Theory_, _Contemporary Indoor Art_
+      
+  * **Activities**
+  
+      - **Delegate** of Fudan Univ. for 2018 and 2019 YKRF Leadership Forum in Seoul and Tokyo
+      - **Member of Fudan Aerobics Squad**, participating in the Cheerleading Contest of Shanghai in 2017-2018
+      - **Voluntary teacher** in Rye Volunteer Community at a primary school in Henan, China in 2017
+      - **Voluntary bilingual guide** for Yu Garden in Shanghai in 2017
+      
+<img align="left" width="195" height="260" src="/images/cheerleading.jpeg">
+<img align="right" width="400" height="260" src="/images/voluntary_teach.jpeg">
+
+<br>
+
+### Career
+
+- I started my first internship in Summer 2019 in [Roland Berger](https://www.rolandberger.com) in Shanghai, as a project intern in the Government and Real-estate division, supporting 14-5 Jing-an Strategic Planning project
+- After that, I've interned in various strategy positions, incl.
+
+    * [Takeda China](https://www.takeda.com/who-we-are/company-information/worldwide-offices/Takeda-China-Holdings-Co-Ltd/) -- Position: _Digitalization Project Intern_
+    * [IQVIA](https://www.iqvia.com) -- Position: _Healthcare Consulting Project Intern_
+    * [Ping An Technology](https://tech.pingan.com/en/) -- Position: _Intern for Ping An Good Doctor_
+
+- During my gap year, I spent 8 months in [B&A Investment Bankers](https://www.benoit-associes.com) as a junior analyst, and then did my summer internship in [OC&C](https://www.occstrategy.com/en/)
+
+
+### Hobbies
+
+- **Chinese calligraphy**: I started practising soft-brush and hard-pen calligraphy since my third grade in primary school, and I've been writing Spring Festival Scrolls for my family and friends during the Chinese New Year
+- **Music**: I have a Level 10 Certificate for classic piano, and I enjoy classical music and concerts
+- **Boxing**: I learned boxing in 2019 and enjoy doing it as a sport
+
+<img align="center" img width = 100% src="/images/calligraphy.jpeg">
+
+_Welcome to find out more in my [posts](https://xuejing-huang.netlify.app/post/)!_
+
+
+
